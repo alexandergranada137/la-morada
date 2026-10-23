@@ -26,3 +26,8 @@ Abra dist/index.html para ver la demostración o sirva dist con un servidor HTTP
 ## Vista cenital conceptual
 
 La vista principal incorpora la imagen generada assets/la-morada-cenital.png, inspirada en el render aportado y guiada por IMPRESION A1. Es una visualización conceptual, no una fotografía satelital ni una restitución exacta de parcelas o viviendas. Los marcadores del render tienen anclajes visuales independientes de las coordenadas CAD. El botón Plano técnico conserva el plano original y sus contornos verificados.
+
+## Interfaz premium
+Inicio: index.html. Explorador: plano.html. Solicitud: cotizacion.html. Contacto: contacto.html.
+El formulario prepara un correo para revisión y envío por el visitante; no almacena ni envía solicitudes automáticamente. Preselecciona la manzana desde el explorador. Contactos tomados del plano proporcionado. Colores y adaptación móvil en premium.css.
+
