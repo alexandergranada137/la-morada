@@ -2,3 +2,5 @@
 
 /* Plano CAD: el fondo conserva la lámina original; los marcadores son navegables. */
 .real-zone{cursor:pointer}.real-outline{fill:#547d5910;stroke:transparent;stroke-width:1.4}.real-zone:hover .real-outline,.real-zone.selected .real-outline{fill:#547d5940;stroke:#2e6646}.real-pin{fill:#31543f;stroke:#fff;stroke-width:1.6}.real-zone.selected .real-pin,.real-zone:hover .real-pin{fill:#bc8037;stroke:#fff}.real-zone .real-letter{fill:white;font:bold 10px Arial;pointer-events:none}.real-zone:focus-visible .real-pin{stroke:#d6963b;stroke-width:4}
+
+.map-styles{position:absolute;top:76px;left:28px;z-index:4;display:flex;background:#fafbf2ed;border:1px solid #ffffff66;border-radius:8px;padding:4px;box-shadow:0 4px 18px #17291b13}.map-styles button{padding:10px 15px;border-radius:5px;font-size:12px}.map-styles .active{background:#2e5340;color:#fff}.stage{background:#d9dfce}@media(max-width:800px){.map-styles{left:15px;top:70px}.map-styles button{padding:10px 12px}}

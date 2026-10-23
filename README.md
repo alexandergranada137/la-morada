@@ -22,3 +22,7 @@ Las 14 escenas siguen utilizando ilustraciones de demostración. Copie las fotos
 - dist/assets/plano-impresion-a1.webp: lámina extraída.
 
 Abra dist/index.html para ver la demostración o sirva dist con un servidor HTTP para añadir fotografías. No hay dependencias web externas. El plano permite arrastre y zoom hasta 6×. El panorama admite arrastre, flechas de teclado y botones de zoom. No incluye pellizco, giroscopio, reservas ni panel de administración.
+
+## Vista cenital conceptual
+
+La vista principal incorpora la imagen generada assets/la-morada-cenital.png, inspirada en el render aportado y guiada por IMPRESION A1. Es una visualización conceptual, no una fotografía satelital ni una restitución exacta de parcelas o viviendas. Los marcadores del render tienen anclajes visuales independientes de las coordenadas CAD. El botón Plano técnico conserva el plano original y sus contornos verificados.
