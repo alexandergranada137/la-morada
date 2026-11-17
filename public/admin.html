@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#51345f">
+  <meta name="robots" content="noindex,nofollow"><title>Panel Comercial & Administración · La Morada</title>
+  <link rel="stylesheet" href="premium.css">
+<link rel="stylesheet" href="site-design.css?v=design1"><link rel="stylesheet" href="interface-design.css?v=referrals1"><link rel="stylesheet" href="loading-ui.css"><script src="loading-ui.js"></script><link rel="stylesheet" href="theme-system.css?v=3"><script src="theme-engine.js?v=3" defer></script></head>
+<body class="interface-page admin-body">
+  <main class="admin-shell">
+    <div class="admin-nav-bar">
+      <a class="admin-back" href="index.html">← Volver al sitio principal</a>
+      <a class="admin-back" href="recorrido.html">Ver explorador 3D ↗</a>
+    </div>
+
+    <section class="admin-hero">
+      <span class="badge-tag">Administración privada</span>
+      <h1>El control de La Morada.</h1>
+      <p>Administra con precisión el inventario de los lotes registrados del proyecto. Publica precios independientes en soles y dólares y controla la disponibilidad. Cada cambio conserva un registro.</p>
+    </section>
+
+    <!-- Login / Setup Panel -->
+    <section id="adminLoading" class="admin-load-shell" role="status"><h2>Abriendo tu espacio de trabajo…</h2><p>Verificando acceso y cargando los datos.</p><div class="loading-lines" aria-hidden="true"><span class="skeleton skeleton-line"></span><span class="skeleton skeleton-line"></span><span class="skeleton skeleton-line"></span></div></section><section id="authPanel" class="admin-login" hidden>
+      <h2>Acceso al equipo.</h2>
+      <p id="authHelp">Ingresa tu contraseña de administrador para continuar.</p>
+      <form id="authForm">
+        <label>Clave de activación del propietario (solo primera configuración)<input id="setupToken" type="password" autocomplete="off"></label>
+        <label>
+          Contraseña
+          <input id="adminPassword" type="password" autocomplete="current-password" minlength="12" placeholder="Mínimo 12 caracteres" required>
+        </label>
+        <label hidden>Código de autenticador o recuperación<input id="adminCode" autocomplete="one-time-code" maxlength="20" placeholder="Código del segundo factor"></label><button class="button brand-action" id="authSubmit" type="submit">Ingresar <span>→</span></button>
+      </form>
+      <button id="retryAdminLoad" type="button" class="quiet-button" hidden>Reintentar conexión</button><p id="authMessage" class="form-message" role="status"></p>
+    </section>
+
+    <!-- Dashboard Panel -->
+    <section id="dashboard" hidden><p id="sessionNotice" class="form-message" role="status" hidden></p>
+      <nav id="adminSections" aria-label="Secciones de administración" style="display:flex;gap:8px;flex-wrap:wrap;margin:20px 0"></nav><div id="inventoryPanel">
+      <!-- KPI Stats -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <small>TOTAL LOTES</small>
+          <strong id="kpiTotal">173</strong>
+          <span>46 lotes fuera de venta en B e I</span>
+        </div>
+        <div class="kpi-card kpi-avail">
+          <small>DISPONIBLES</small>
+          <strong id="kpiAvailable">0</strong>
+          <span>Listos para cotizar</span>
+        </div>
+        <div class="kpi-card kpi-sep">
+          <small>SEPARADOS</small>
+          <strong id="kpiSeparated">0</strong>
+          <span>En proceso de cierre</span>
+        </div>
+        <div class="kpi-card kpi-sold">
+          <small>VENDIDOS</small>
+          <strong id="kpiSold">0</strong>
+          <span>Completados</span>
+        </div>
+        <div class="kpi-card kpi-val">
+          <small>VALOR INVENTARIO DISP.</small>
+          <strong id="kpiValue">S/ 0</strong>
+          <span>Con precio publicado</span>
+        </div>
+      </div>
+
+      <header class="admin-top">
+        <div>
+          <span>GESTIÓN COMERCIAL ACTIVA</span>
+          <h2>Inventario y Precios por Lote</h2>
+        </div>
+        <div class="admin-actions">
+          <button id="downloadTemplate" class="quiet-button" title="Descarga plantilla CSV compatible">📥 Descargar CSV</button>
+          <button id="logout" class="quiet-button">Cerrar sesión</button>
+        </div>
+      </header>
+
+      <!-- Search, Filters and Bulk Tools -->
+      <div class="admin-controls-card">
+        <div class="admin-controls">
+          <label>
+            Buscar Lote o Manzana
+            <input id="lotSearch" placeholder="Ej. B-05, K, 120...">
+          </label>
+          <label>
+            Filtrar por Manzana
+            <select id="blockFilter">
+              <option value="">Todas las manzanas</option>
+              <option value="A">Manzana A</option>
+              <option value="B" disabled>Manzana B · Fuera de venta</option>
+              <option value="C">Manzana C</option>
+              <option value="D">Manzana D</option>
+              <option value="E">Manzana E</option>
+              <option value="F">Manzana F</option>
+              <option value="G">Manzana G</option>
+              <option value="H">Manzana H</option>
+              <option value="I" disabled>Manzana I · Fuera de venta</option>
+              <option value="J">Manzana J</option>
+              <option value="K">Manzana K</option>
+            </select>
+          </label>
+          <label>
+            Filtrar por Estado
+            <select id="statusFilter">
+              <option value="">Todos los estados</option><option value="unknown">Sin publicar</option>
+              <option value="available">Disponibles</option>
+              <option value="separated">Separados</option>
+              <option value="sold">Vendidos</option>
+            </select>
+          </label>
+          <label class="upload-control">
+            <span>📂 Subir Excel o CSV</span>
+            <input id="csvUpload" type="file" accept=".xlsx,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+          </label>
+        </div>
+
+        <section class="csv-import-summary" aria-label="Importación de archivo"><p id="csvMessage" role="status">Selecciona un Excel (.xlsx) o CSV para revisar sus datos. Después aplica los cambios para publicarlos.</p><div class="csv-actions"><button id="discardCsv" class="quiet-button" type="button" disabled>Descartar archivo</button><button id="forceCsv" class="button" type="button" disabled>Forzar archivo completo</button><button id="applyCsv" class="quiet-button" type="button" disabled>Aplicar solo lo válido</button></div><p class="csv-help">Forzar sobrescribe los valores existentes con los del archivo y requiere que todas las filas sean válidas. Aplicar solo lo válido omite las filas con errores. Para actualizar solo el área de un lote ya vendido, deja en blanco ambos precios y conserva el estado Vendido. Escribe los precios completos, sin abreviar en miles.</p><details id="csvErrors" hidden><summary>Filas que no se pueden aplicar</summary><ul id="csvErrorList"></ul></details></section>
+        <!-- Bulk Action Bar -->
+        <div class="bulk-bar">
+          <span class="bulk-title">Acciones en lote para resultados visibles:</span>
+          <div class="bulk-inputs">
+            <select id="bulkStatusSelect">
+              <option value="">Cambiar estado a...</option>
+              <option value="available">Disponible</option>
+              <option value="separated">Separado</option>
+              <option value="sold">Vendido</option>
+            </select>
+            <button id="applyBulkStatus" type="button" class="quiet-button">Asignar Estado</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="adminMessage" class="form-message" role="status"></div>
+
+      <!-- Lots Table -->
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Lote</th>
+              <th>Área m²</th>
+              <th>Precio en soles (S/)</th>
+              <th>Precio en dólares (US$)</th>
+              <th>Estado</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody id="lotRows"></tbody>
+        </table>
+      </div>
+
+      <div class="inventory-pagination"><button id="previousPage" type="button" class="quiet-button">Anterior</button><span id="pageStatus" role="status"></span><button id="nextPage" type="button" class="quiet-button">Siguiente</button></div>
+      <!-- Sticky Save Bar -->
+      <div class="save-bar">
+        <div class="save-status">
+          <span id="changeCount">Sin cambios pendientes</span>
+          <small id="changeHelp">B e I están fuera de venta. Los precios en soles y dólares son independientes. Revisa los cambios antes de guardar.</small>
+        </div>
+        <div class="save-actions">
+          <button id="discardChanges" class="quiet-button" style="display:none;">Descartar cambios</button>
+          <button id="saveLots" class="button brand-action">Guardar cambios <span>→</span></button>
+        </div>
+      </div>
+    </div></section>
+  </main>
+  <script src="vendor/fflate-0.7.4.js"></script><script src="catalog-xlsx.js"></script><script src="admin.js?v=catalogo-decimal2"></script><script src="admin-content.js?v=referrals1"></script><script src="admin-promotions.js?v=design1"></script><script src="admin-themes.js?v=3"></script><script src="admin-security.js?v=persistent1"></script><script src="admin-tools.js?v=referrals1"></script><script src="admin-advisors.js"></script><script src="admin-activity.js"></script>
+</body>
+</html>

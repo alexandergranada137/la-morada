@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import vm from 'node:vm';
+const source=readFileSync('public/admin.js','utf8').replace(/\r\n/g,'\n'),nodes=new Map(),handlers=new Map(),saved=[];
+const state={lots:[{id:'A-01',block:'A',lot:1},{id:'A-02',block:'A',lot:2},{id:'B-01',block:'B',lot:1}],dirty:new Map(),page:1};
+const node=()=>({disabled:false,textContent:'',replaceChildren(){},append(){}});
+const $=id=>{if(!nodes.has(id))nodes.set(id,{...node(),addEventListener:(event,fn)=>handlers.set(id+':'+event,fn)});return nodes.get(id);};let fail=false;
+const context=vm.createContext({state,$,TextDecoder,Map,Set,Number,JSON,console,document:{createElement:node},message:(id,text)=>$(id).textContent=text,updateCount(){},updateKpis(){},render(){},load:async()=>{},api:async body=>{if(fail)throw Error('Error de red');saved.push(body);return {saved:body.rows.length};}});
+vm.runInContext(source.slice(source.indexOf('function rowValue('),source.indexOf('function change('))+source.slice(source.indexOf('let csvIds='),source.indexOf("$('#downloadTemplate')"))+source.slice(source.indexOf("$('#csvUpload')?.addEventListener"),source.indexOf('initBulkActions();\nload();'))+source.slice(source.indexOf('function parseCsv('),source.indexOf("window.addEventListener('beforeunload'")),context);
+async function upload(text,encoding='utf8'){const bytes=Buffer.from(text,encoding),target={files:[{name:'prueba.csv',size:bytes.length,arrayBuffer:async()=>bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength)}],value:'file'};await handlers.get('#csvUpload:change')({target});assert.equal(target.value,'');}
+const header='id;área;precio;precio_usd;estado\r\n';
+await upload(header+'A-1;200,5;50000,50;14000,25;Separado\r\nB-01;200;10000;3000;vendido');
+assert.equal(state.dirty.size,0,'Preview must not edit the inventory');assert.equal($('#applyCsv').disabled,false);
+await handlers.get('#forceCsv:click')();assert.equal(saved.length,0,'Force is atomic with invalid rows');assert.match($('#csvMessage').textContent,/No se aplicó/);
+state.dirty.set('A-02',{area:210,price:80000,usdPrice:23000,status:'available'});
+await handlers.get('#applyCsv:click')();assert.equal(saved[0].rows.length,1);assert.equal(saved[0].rows[0].usdPrice,'14000.25');assert.equal(saved[0].rows[0].status,'separated');assert.ok(state.dirty.has('A-02'));assert.match($('#csvMessage').textContent,/1 filas omitidas/);
+await upload('\ufeffid,area,precio,precio_usd,estado\r\nA-01,200,50000,14000,vendido','utf16le');
+state.dirty.set('A-01',{area:201,price:111,usdPrice:222,status:'available'});
+await handlers.get('#forceCsv:click')();assert.equal(saved[1].rows[0].price,50000,'Force must use original file values');assert.ok(!state.dirty.has('A-01'));
+await upload(header+'A-01;200;50000;14000;disponible\nA-1;200;50000;14000;vendido');assert.equal($('#applyCsv').disabled,true,'Omit every conflicting duplicate');
+await upload(header+'A-01;200;50000;14000;vendido');fail=true;await handlers.get('#applyCsv:click')();assert.equal($('#applyCsv').disabled,false);assert.match($('#csvMessage').textContent,/Error de red/);
+console.log('PASS: complete-file force, valid-only import, per-row errors, duplicate conflicts, preview isolation, manual edit preservation, original file overwrite, Excel delimiters/decimals/UTF-16, retry. No real database modified.');

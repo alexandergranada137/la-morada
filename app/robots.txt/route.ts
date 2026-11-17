@@ -1,0 +1,1 @@
+export function GET(request:Request){const base=new URL(request.url).origin;return new Response(`User-agent: *\nDisallow: /admin.html\nDisallow: /api/\nSitemap: ${base}/sitemap.xml\n`,{headers:{'Content-Type':'text/plain; charset=utf-8'}});}

@@ -1,0 +1,2 @@
+CREATE TABLE content (id text PRIMARY KEY NOT NULL,kind text NOT NULL,title text NOT NULL,body text NOT NULL,image text NOT NULL DEFAULT '',published integer NOT NULL DEFAULT 0,created text NOT NULL);
+CREATE TABLE leads (id text PRIMARY KEY NOT NULL,name text NOT NULL,email text NOT NULL,phone text NOT NULL,lot_id text NOT NULL,currency text NOT NULL,message text NOT NULL,created text NOT NULL,consent_version text NOT NULL);

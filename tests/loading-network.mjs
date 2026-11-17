@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const timers=new Map(),listeners=new Map(),calls=[];let next=0,mode='wait',streamController;
+const nativeFetch=(input,options)=>{calls.push({input,options});if(mode==='json')return Promise.resolve(Response.json({ok:true}));if(mode==='stream')return Promise.resolve(new Response(new ReadableStream({start(c){streamController=c;}}),{headers:{'Content-Type':'application/json'}}));return new Promise((resolve,reject)=>options.signal.addEventListener('abort',()=>reject(new DOMException('Aborted','AbortError')),{once:true}));};
+const window={fetch:nativeFetch,addEventListener:(type,fn)=>listeners.set(type,fn),dispatchEvent:()=>{}};
+const context=vm.createContext({window,document:{body:null,readyState:'loading',addEventListener(){}},navigator:{onLine:true},location:{href:'https://morada.test/index.html',origin:'https://morada.test'},URL,Request,Response,ReadableStream,AbortController,DOMException,Error,TypeError,Set,Map,Event,performance:{now:()=>0},setTimeout:(fn,ms)=>{const id=++next;timers.set(id,{fn,ms});return id;},clearTimeout:id=>timers.delete(id)});
+vm.runInContext(fs.readFileSync('public/loading-ui.js','utf8'),context);
+let result=window.fetch('/api/catalogo');assert.ok([...timers.values()].some(t=>t.ms===20000));[...timers.values()].find(t=>t.ms===20000).fn();await assert.rejects(result,error=>error.name==='TimeoutError');assert.equal(calls.length,1);
+result=window.fetch('/api/clientes',{method:'POST',body:'{"requestId":"test-id"}'});assert.ok([...timers.values()].some(t=>t.ms===30000));[...timers.values()].find(t=>t.ms===30000).fn();await assert.rejects(result,error=>error.name==='TimeoutError');assert.equal(calls.length,2,'Never automatically repeat a write');assert.equal(calls[1].options.body,'{"requestId":"test-id"}');
+mode='stream';result=window.fetch('/api/contenido');await Promise.resolve();assert.ok([...timers.values()].some(t=>t.ms===20000),'Deadline also covers a slow JSON body');streamController.enqueue(new TextEncoder().encode('{"ok":true}'));streamController.close();assert.equal((await (await result).json()).ok,true);assert.equal(timers.size,0);
+mode='json';assert.equal((await (await window.fetch('/api/admin')).json()).ok,true);
+console.log('PASS: network deadlines include JSON downloads, safe write handling and successful recovery.');

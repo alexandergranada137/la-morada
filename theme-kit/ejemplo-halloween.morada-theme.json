@@ -1,0 +1,65 @@
+{
+  "format": "la-morada-theme",
+  "version": 1,
+  "id": "halloween",
+  "name": "Halloween en La Morada",
+  "colors": {
+    "accent": "#af632c",
+    "deep": "#492752",
+    "surface": "#fcf8f3",
+    "sky": "#14233d",
+    "background": "#24172e"
+  },
+  "images": {
+    "hero": "",
+    "banner": ""
+  },
+  "decoration": {
+    "motif": "leaves",
+    "animated": false,
+    "density": 6
+  },
+  "scene": {
+    "enabled": true,
+    "decorations": true,
+    "models": [
+      {
+        "kind": "pumpkin",
+        "slot": "park-north",
+        "scale": 1
+      },
+      {
+        "kind": "zombie",
+        "slot": "park-center",
+        "scale": 1
+      }
+    ],
+    "elements": {
+      "vegetation": "#6f724e",
+      "amenities": "#8b4a79",
+      "trunks": "",
+      "facades": "",
+      "roofs": "",
+      "furniture": "",
+      "water": "",
+      "commonGround": "",
+      "surroundings": ""
+    },
+    "timeOfDay": "night",
+    "weather": "none",
+    "groundCover": "leaves",
+    "style": "autumn",
+    "coverStrength": "balanced"
+  },
+  "schedule": {
+    "start": "",
+    "end": ""
+  },
+  "page": {
+    "buttonStyle": "stone",
+    "accents": [
+      "cobwebs",
+      "zombie"
+    ]
+  }
+}

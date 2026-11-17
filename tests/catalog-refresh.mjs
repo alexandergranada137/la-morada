@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import vm from 'node:vm';
+const source=readFileSync('public/tour3d.js','utf8');
+const catalog=new Map([['A-01',{status:'available',cents:100}]]),lots=[{id:'A-01',block:'A'},{id:'B-01',block:'B'}],nodes=new Map(),removed=[],rebuilt=[];
+const $=id=>{if(!nodes.has(id))nodes.set(id,{disabled:false,textContent:''});return nodes.get(id);};
+let fail=false;
+const context=vm.createContext({catalog,lots,$,Intl,Date,Map,Array,Error,blockedBlocks:new Set(['B','I']),landscapeVisual:null,verified:true,catalogReady:true,catalogRefreshing:false,selected:null,changed:false,fetch:async()=>{if(fail)throw Error();return{ok:true,json:async()=>({lots:[{id:'A-01',price:{status:'sold',cents:100}},{id:'B-01',price:{status:'available'}}]})};},removeLotVisual:id=>removed.push(id),buildLot:lot=>rebuilt.push(lot.id),updateList(){}});
+vm.runInContext(source.slice(source.indexOf('function lotState('),source.indexOf('const names='))+source.slice(source.indexOf('async function refreshCatalog('),source.indexOf("$('#refreshCatalog').onclick")),context);
+await vm.runInContext('refreshCatalog()',context);
+assert.deepEqual(removed,['A-01']);assert.deepEqual(rebuilt,['A-01']);assert.equal(catalog.get('A-01').status,'sold');assert.match($('#catalogStatus').textContent,/1 vendidos/);
+await vm.runInContext('refreshCatalog()',context);assert.equal(rebuilt.length,1,'Do not rebuild unchanged lot meshes');
+fail=true;await vm.runInContext('refreshCatalog()',context);assert.match($('#catalogStatus').textContent,/No se pudo actualizar/);assert.equal($('#refreshCatalog').disabled,false);assert.ok(!rebuilt.includes('B-01'),'B remains blocked');
+console.log('PASS: refresh replaces changed visuals, preserves unchanged meshes, protects blocked blocks, degrades unverified states and restores retry.');

@@ -1,0 +1,69 @@
+{
+  "format": "la-morada-theme",
+  "version": 1,
+  "id": "navidad",
+  "name": "Navidad en La Morada",
+  "colors": {
+    "accent": "#ba3547",
+    "deep": "#1f5846",
+    "surface": "#fcfaf5",
+    "sky": "#d9e8ee",
+    "background": "#fcfaf5"
+  },
+  "images": {
+    "hero": "",
+    "banner": ""
+  },
+  "decoration": {
+    "motif": "snow",
+    "animated": true,
+    "density": 6
+  },
+  "scene": {
+    "enabled": true,
+    "decorations": true,
+    "models": [
+      {
+        "kind": "christmas-tree",
+        "slot": "park-north",
+        "scale": 1
+      },
+      {
+        "kind": "gift-box",
+        "slot": "park-center",
+        "scale": 1
+      },
+      {
+        "kind": "snowman",
+        "slot": "park-south",
+        "scale": 1
+      }
+    ],
+    "elements": {
+      "vegetation": "#385d43",
+      "amenities": "#a93f4e",
+      "trunks": "",
+      "facades": "",
+      "roofs": "",
+      "furniture": "",
+      "water": "",
+      "commonGround": "",
+      "surroundings": ""
+    },
+    "timeOfDay": "day",
+    "weather": "snow",
+    "groundCover": "snow",
+    "style": "winter",
+    "coverStrength": "balanced"
+  },
+  "schedule": {
+    "start": "",
+    "end": ""
+  },
+  "page": {
+    "buttonStyle": "pill",
+    "accents": [
+      "ribbon"
+    ]
+  }
+}

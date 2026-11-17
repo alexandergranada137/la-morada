@@ -1,0 +1,1 @@
+Coloca aquí imágenes JPG, PNG o WebP. En theme.json indica assets/hero.webp o assets/banner.webp. Ejecuta empaquetar-tema.mjs para incluirlas dentro de un solo archivo importable. No se admiten SVG, scripts, HTML ni URLs externas.

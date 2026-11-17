@@ -1,0 +1,22 @@
+{
+  "kinds": {
+    "christmas-tree": "Árbol navideño con adornos",
+    "gift-box": "Regalo con cinta",
+    "snowman": "Muñeco de nieve con bufanda",
+    "pumpkin": "Calabaza decorativa",
+    "flag": "Banderín con colores del tema",
+    "flowers": "Maceta con flores",
+    "zombie": "Personaje decorativo de Halloween, sin violencia gráfica"
+  },
+  "slots": [
+    "park-north",
+    "park-center",
+    "park-south"
+  ],
+  "maxModels": 3,
+  "scaleRange": [
+    0.5,
+    1.5
+  ],
+  "note": "Una pieza por ubicación. Modelos procedurales integrados; no se admiten URL ni archivos GLB arbitrarios. Si el espacio no permite colocar una pieza sin invadir el parque, se omite. Nuevos tipos requieren ampliar el renderer y actualizar el contrato."
+}

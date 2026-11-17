@@ -1,0 +1,391 @@
+/* Black Friday campaign: neutral surfaces with violet accents. */
+body.black-friday{--bf-field-border:#707070;--bf-divider:#383838;--bf-muted:#c9c9c9;--bf-control-hover:#414141;--bf-control:#303030;--bf-inset:#151515;--bf-night:#0d0d0d;--bf-panel:#202020;--bf-lilac:#e4b8ff;--bf-white:#f5f5f5;--home-ink:var(--bf-white);--home-muted:var(--bf-muted);--home-surface:var(--bf-night);background:var(--bf-night);color:var(--bf-white);--brand-gradient:linear-gradient(115deg,#7522ae,#a64ade)}
+body.black-friday .seasonal-strip,body.black-friday .seasonal-ornaments,body.black-friday .seasonal-page-accents{display:none}
+body.black-friday .site-header{background:var(--bf-inset);border-bottom:1px solid var(--bf-divider);color:var(--bf-white)}
+body.black-friday .site-header nav a{color:var(--bf-white)}
+body.black-friday .site-header nav a[aria-current]{color:#edbaff}
+body.black-friday .brand-official img{background:#fff;border-radius:12px;padding:5px}
+body.black-friday .navigation-toggle{background:var(--bf-control);color:#fff;border-color:var(--bf-divider)}
+body.black-friday :is(.nav-cta,.button.home-primary,.primary){background:linear-gradient(115deg,#7522ae,#a64ade);color:white;border:1px solid #cb81ef;box-shadow:0 4px 20px #a02cce25}
+.bf-banner{min-height:62px;padding:9px 5%;display:flex;align-items:center;justify-content:center;gap:28px;background:var(--bf-panel);color:white;border-block:1px solid var(--bf-divider);font:600 13px/1.4 'Nunito Morada','Segoe UI',sans-serif}
+.bf-banner strong {
+  display:inline-flex;
+  align-items:center;
+  padding:5px 14px;
+  background:#8235b4;
+  border-radius:8px;
+  color:#fff;
+  font-size:clamp(18px,3vw,27px);
+  font-weight:900;
+  line-height:1.2;
+  letter-spacing:-.035em;
+  white-space:nowrap;
+}
+.bf-banner a {
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  min-height:44px;
+  color:#fff;
+  font-weight:800;
+}
+.bf-live {color:var(--bf-muted)}
+body.black-friday.home-page .hero{margin:20px 24px 0;border:1px solid var(--bf-divider);min-height:740px;background:var(--bf-night)}
+body.black-friday.home-page .hero:before{background:linear-gradient(90deg,#0d0d0df5 0%,#0d0d0ddc 40%,#0d0d0d65 75%,#0d0d0d30)}
+body.black-friday.home-page .hero-copy{width:min(700px,75%)}
+body.black-friday.home-page .hero h1{margin:18px 0 16px;line-height:.88;max-width:700px}
+.bf-hero-label{display:block;font-size:13px;line-height:1.5;letter-spacing:.04em;margin-bottom:17px;color:var(--bf-white)}
+.bf-headline{display:block;font-size:clamp(76px,9vw,132px);font-weight:900;letter-spacing:-.065em;color:var(--bf-white);line-height:.86}
+.bf-hero-subtitle{display:block;font-size:clamp(25px,3vw,38px);line-height:1.12;letter-spacing:-.035em;margin-top:24px;color:white}
+body.black-friday.home-page .hero-copy>p{max-width:440px;color:var(--bf-white)}
+body.black-friday.home-page .home-intro-bar{border-color:var(--bf-divider)}body.black-friday.home-page .home-intro-bar :is(p,strong,a){color:#e4b8ff}
+body.black-friday.home-page :is(.section-heading h2,.section-heading>p,.project-details-copy h2,.project-details-copy>p,.project-facts dt,.project-facts dd,.arrival-copy h2,.arrival-copy>p,.visit-expectations li,.home-finder-section>div>h2,.home-finder-section>div>p,.decision-copy h2,.home-steps strong,.home-steps p,.project-faq h3,.project-faq summary,.project-faq p,.project-infrastructure h3,.project-infrastructure p){color:var(--bf-white)}
+body.black-friday.home-page :is(.section-kicker,.text-link,.arrival-map,.project-infrastructure a){color:#dda5ff}
+body.black-friday.home-page :is(.home-closing){background:var(--bf-panel);border-block:1px solid var(--bf-divider)}
+body.black-friday .site-footer{background:var(--bf-inset);color:var(--bf-muted);border-top:1px solid var(--bf-divider)}body.black-friday .site-footer :is(p,small,a){color:var(--bf-muted)}
+body.black-friday.interface-page :is(.form-intro>h1,.form-intro>p,.contact-layout>div>h1,.contact-layout>div>p,.community-intro>div>h1,.community-intro>div>p,.ui-section-heading h2,.page-intro h1,.page-intro>p,.story){color:var(--bf-white)}
+body.black-friday.interface-page :is(.ui-kicker,.page-back){color:#dca8fa}
+body.black-friday.interface-page :is(.form-card,.quote-card,.visit-card,.legal-page,.site-video,.plan-reference){color:var(--bf-white);background:var(--bf-panel)}
+body.black-friday.interface-page .ui-next-step{background:var(--bf-panel);border:1px solid var(--bf-divider)}
+body.black-friday .explorer-panel{background:var(--bf-panel);color:var(--bf-white);border-right:1px solid var(--bf-divider)}
+.bf-page-label{display:block;width:fit-content;background:#7624a9;color:#fff;padding:7px 13px;border-radius:6px;font-size:14px;letter-spacing:.02em;margin-bottom:13px}
+body.black-friday .scene-toolbar{border-color:var(--bf-divider)}body.black-friday .scene-panel{border-color:var(--bf-divider)}
+body.black-friday :is(a,button,input,select,summary):focus-visible{outline:3px solid #bc69ef;outline-offset:4px}
+@media(min-width:761px){body.black-friday .explorer{height:calc(100dvh - 144px)}}
+@media(max-width:760px){.bf-banner{gap:5px 16px;flex-wrap:wrap;padding:8px 16px;justify-content:space-between}.bf-live{font-size:11px}.bf-banner a{font-size:12px;min-height:44px}.bf-banner .bf-live{display:none}body.black-friday .site-header nav{background:var(--bf-inset)}body.black-friday.home-page .hero{margin:12px 12px 0;padding:32px 22px;min-height:740px}body.black-friday.home-page .hero-copy{width:100%}.bf-headline{font-size:clamp(68px,18vw,110px)}.bf-hero-subtitle{font-size:28px}body.black-friday.home-page .hero:before{background:linear-gradient(90deg,#0d0d0ded,#0d0d0da8)}body.black-friday.home-page .home-intro-bar{padding:20px;gap:12px}.bf-hero-label{font-size:12px}}
+@media print{.bf-banner{display:none}body.black-friday{background:white;color:black}}
+/* Keep text readable on the original light information cards. */
+body.black-friday.home-page :is(.terrain-preview,.amenity-card,.project-distribution,.home-lot-finder,.terrain-video-dialog){--home-ink:var(--bf-white);--home-muted:var(--bf-muted);color:var(--bf-white)}
+body.black-friday.home-page .terrain-preview strong{color:var(--bf-white)}
+body.black-friday.home-page .project-distribution p{color:var(--bf-muted)}
+body.black-friday.home-page .project-infrastructure{background:var(--bf-panel);border-color:var(--bf-divider)}
+/* Full dark campaign surfaces, including forms and explorer controls. */
+body.black-friday{color-scheme:dark}
+body.black-friday :is(.terrain-preview,.amenity-card,.project-distribution,.home-lot-finder,.terrain-video-dialog,.form-card,.quote-card,.visit-card,.legal-page,.site-video,.plan-reference,.contact-panel,.contact-location,.contact-bottom,.community-empty,.explorer-panel,.lot-card,.view-switch,.scene-actions,.scene-options,.scene-footer,.legend,.model-details,.zoom-controls,.gallery-tabs,.plan-loading,.ui-next-step){background:var(--bf-panel)!important;color:var(--bf-white)!important;border-color:var(--bf-divider)!important;--home-ink:var(--bf-white);--home-muted:var(--bf-muted)}
+body.black-friday :is(.terrain-preview,.amenity-card,.project-distribution,.home-lot-finder,.terrain-video-dialog,.form-card,.quote-card,.visit-card,.legal-page,.site-video,.plan-reference,.contact-panel,.contact-location,.contact-bottom,.community-empty,.explorer-panel,.lot-card,.model-details,.plan-loading) :is(h1,h2,h3,h4,p,strong,small,label,summary,dt,dd,span,figcaption){color:var(--bf-white)!important}
+body.black-friday :is(input,select,textarea){background:var(--bf-inset)!important;color:var(--bf-white)!important;border-color:var(--bf-field-border)!important;accent-color:#ba6ae7}
+body.black-friday input::placeholder,body.black-friday textarea::placeholder{color:var(--bf-muted)}
+body.black-friday :is(.gallery-tabs,.community-filters,.scene-actions,.view-switch,.zoom-controls,.scene-options) button{background:var(--bf-control);color:var(--bf-white);border-color:var(--bf-divider)}
+body.black-friday :is(.gallery-tabs,.community-filters,.view-switch,.scene-actions) button:is([aria-selected=true],[aria-pressed=true]){background:#8034ad;color:white;border-color:#c07fe4}
+body.black-friday :is(.amenity-card-title,.amenity-card-copy,.amenity-card-detail,.finder-title,.block-stat,.block-stat-letter,.lot-price,.lot-number,.panel-heading h1,.filter-disclosure summary,.currency-switch label,.filters label){color:var(--bf-white)}
+body.black-friday :is(.back-link,.reference-link,.legal-navigation a,.contact-link,.form-card a,.legal-page a,.site-video a,.plan-reference a,.catalog-tools button){color:#dfadff}
+body.black-friday :is(.amenity-icon,.amenity-expand,.block-stat-track,.legal-navigation a,.form-step,.simulator,.coupon-entry,#quoteResult,.kpi-card){background:var(--bf-control)!important;color:var(--bf-white)!important;border-color:var(--bf-divider)!important}
+body.black-friday :is(.gallery-footnote,.home-project-note,.commercial-note,.data-status,.catalog-tools span,.model-note,.scene-footer,.legend){color:var(--bf-muted)}
+body.black-friday .scene-panel{background:var(--bf-inset)}
+body.black-friday .brand-official img{background:#fff}
+body.black-friday .home-closing .button{background:#8838b7;color:#fff;border:1px solid #c886ec}
+@media print{body.black-friday{color-scheme:light}}
+/* Contrast corrections: explicit foreground/background pairs for nested surfaces. */
+body.black-friday{--ink:var(--bf-white);--muted:var(--bf-muted);--ui-ink:var(--bf-white);--ui-muted:var(--bf-muted);--ui-border:var(--bf-field-border);--paper:var(--bf-night);--line:var(--bf-divider);--lavender:var(--bf-control)}
+body.black-friday :is(.simulator-card,.sim-results,#quoteState,.lot-facts,.story,.story-preview,.privacy-dialog,.filter-disclosure,.model-note,.model-details summary,.scene-options>summary,.legend-disclosure>summary,.community-filters){background:var(--bf-panel)!important;color:var(--bf-white)!important;border-color:var(--bf-field-border)!important}
+body.black-friday :is(.simulator-card,.sim-results,#quoteState,.lot-facts,.story,.privacy-dialog) :is(h2,h3,p,small,strong,span,label,legend,time){color:var(--bf-white)!important}
+body.black-friday :is(.secondary,.quiet-button,.quiet-button-light,.pill-btn,.chat-pill,.demo-badge,.video-close,.privacy-dialog button){background:var(--bf-control)!important;color:var(--bf-white)!important;border:1px solid var(--bf-divider)!important}
+body.black-friday :is(.pill-btn.active,.pill-btn[aria-pressed=true],.privacy-dialog button:first-of-type){background:#74309e!important;color:#fff!important}
+body.black-friday :is(.secondary,.quiet-button,.pill-btn,.scene-toolbar button,.zoom-controls button):hover{background:var(--bf-control-hover)!important;color:#fff!important}
+body.black-friday .lot-card .lot-status{background:var(--bf-control);color:var(--bf-white)!important}
+body.black-friday .lot-card .lot-status.available{background:#203b2b;color:#b8f0c4!important}
+body.black-friday .lot-card .lot-status.separated{background:#44351b;color:#ffe29a!important}
+body.black-friday .lot-card .lot-status.sold{background:#43364e;color:#f1e1fc!important}
+body.black-friday .lot-card .lot-status:is(.blocked,.unknown){background:#383838;color:var(--bf-white)!important}
+body.black-friday .lot-number{background:var(--bf-inset);color:#fff;border:1px solid var(--bf-field-border)}
+body.black-friday .lot-number.selected{background:#74309e;color:#fff}
+body.black-friday :is(.story-toggle,.share-lot,.filter-feedback button,.gallery-footnote>a,.amenity-card-detail a,.project-infrastructure span,.lot-original-price,.sim-badge,.sim-footnote){color:#dfadff}
+body.black-friday :is(.form-card,.visit-card) .form-message.error{background:#4c242e;color:#ffc4c0!important;border-color:#c37a85}
+body.black-friday :is(.form-card,.visit-card) .form-message.success{background:#203b2b;color:#b8f0c4!important;border-color:#6ca07b}
+body.black-friday :is(.form-card,.visit-card) .form-message :is(span,p,strong){color:inherit!important}
+body.black-friday .ui-next-step .button{background:#74309e;color:#fff;border:1px solid var(--bf-field-border)}
+body.black-friday .skip:focus{background:var(--bf-panel);color:#fff}
+body.black-friday select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23e4b8ff' stroke-width='2'%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E")!important;background-position:right 10px center!important;background-size:18px!important;background-repeat:no-repeat!important;padding-right:34px!important}
+body.black-friday :is(a,button,input,select,textarea,summary):focus-visible{outline:3px solid #e4b8ff!important;outline-offset:3px!important}
+@media(max-width:760px){body.black-friday .explorer{background:var(--bf-night)}body.black-friday.home-page .hero{padding-bottom:180px;min-height:820px}body.black-friday.home-page .bf-headline br{display:block}}
+body.black-friday :is(.back,.eyebrow,.phone-call-link,.text-link,.form-intro a,.form-group legend){color:#dfadff!important}
+body.black-friday .gallery-footnote p{color:var(--bf-muted)}
+body.black-friday .skip{background:var(--bf-panel);color:white}
+body.black-friday.home-page .gallery-panel figcaption{background:#151515f2;padding:18px;border-radius:14px}
+body.black-friday.home-page .arrival-photo>span{background:var(--bf-inset);color:white}
+body.black-friday.interface-page .legal-page>a:first-child{color:#dfadff}
+/* Responsive campaign layout: a shared gutter and content-driven hero height. */
+body.black-friday{--bf-gutter:clamp(12px,2vw,32px);min-height:100dvh;background-color:var(--bf-night)}
+body.black-friday.home-page .hero{box-sizing:border-box;width:calc(100% - var(--bf-gutter)*2);margin:20px var(--bf-gutter) 0;max-width:none}
+body.black-friday.home-page .home-closing{margin-inline:var(--bf-gutter)}
+body.black-friday.home-page .bf-hero-subtitle br{display:block}
+body.black-friday :is(.form-layout,.contact-layout,.community-intro,.home-finder-section)>*{min-width:0}
+body.black-friday .bf-banner{box-sizing:border-box;width:100%}
+@media(min-width:761px){body.black-friday .explorer{height:calc(100dvh - 144px);min-height:620px}body.black-friday.home-page .hero-image img{object-position:62% center}}
+@media(max-width:760px){
+ body.black-friday.home-page .hero{min-height:0;height:auto;padding:30px 22px 22px;margin-top:12px;display:flex;flex-direction:column;align-items:stretch;gap:24px}
+ body.black-friday.home-page .hero-copy{width:100%;max-width:none}
+ body.black-friday.home-page .hero h1{max-width:none}
+ body.black-friday.home-page .bf-headline{font-size:clamp(58px,17vw,110px)}
+ body.black-friday.home-page .bf-hero-subtitle{font-size:clamp(25px,6.5vw,36px);line-height:1.16}
+ body.black-friday.home-page .terrain-preview{position:relative;inset:auto;width:100%;margin:0;flex-shrink:0}
+ body.black-friday.home-page .hero-disclosure{position:relative;inset:auto;margin:0;text-align:left;line-height:1.5}
+ body.black-friday.home-page .hero-image img{object-position:58% center}
+ body.black-friday.home-page .hero:before{background:linear-gradient(180deg,#0d0d0de8,#0d0d0dc9 65%,#0d0d0db8)}
+ body.black-friday.home-page .hero-actions{gap:12px;margin-top:24px}
+ body.black-friday.home-page .home-section{padding-inline:20px}
+ body.black-friday .bf-banner{gap:8px 12px;padding-inline:16px}
+ body.black-friday.interface-page :is(.form-layout,.contact-layout,.community,.reference-page){padding-left:20px;padding-right:20px}
+ body.black-friday.interface-page :is(.form-card,.visit-card,.contact-panel){padding:22px}
+ body.black-friday .site-footer{padding-inline:20px}
+}
+@media(max-width:360px){body.black-friday.home-page .hero{padding-inline:18px}.bf-banner strong{padding-inline:10px}.bf-banner a{gap:8px;font-size:11px}body.black-friday.interface-page :is(.form-card,.visit-card,.contact-panel){padding:18px}}
+/* Filled buttons use their surface, never a decorative outline. */
+body.black-friday :is(.button,.primary,.secondary,.nav-cta,.quiet-button,.quiet-button-light,.pill-btn,.chat-pill,.video-close,.navigation-toggle,.privacy-dialog button,.gallery-tabs button,.community-filters button,.scene-toolbar button,.zoom-controls button){border:0!important;box-shadow:none!important;text-decoration:none;line-height:1.35;min-height:44px}
+body.black-friday :is(.button,.primary,.nav-cta){background:#8235b4!important;color:#fff!important;font-weight:700}
+body.black-friday :is(.secondary,.quiet-button,.quiet-button-light,.pill-btn,.navigation-toggle,.video-close,.privacy-dialog .privacy-close){background:var(--bf-control)!important;color:var(--bf-white)!important}
+body.black-friday :is(.button,.primary,.nav-cta):hover{background:#70279f!important;color:#fff!important}
+body.black-friday :is(.secondary,.quiet-button,.quiet-button-light,.pill-btn,.navigation-toggle,.video-close):hover{background:var(--bf-control-hover)!important;color:#fff!important}
+body.black-friday :is(.pill-btn.active,.pill-btn[aria-pressed=true],.gallery-tabs button[aria-selected=true],.community-filters button[aria-pressed=true],.scene-toolbar button[aria-pressed=true]){background:#8235b4!important;color:#fff!important}
+body.black-friday :is(.button,.primary,.secondary,.quiet-button,.pill-btn):disabled{opacity:1;background:var(--bf-control)!important;color:#b8b8b8!important;cursor:not-allowed}
+body.black-friday .whatsapp-btn{background:var(--bf-control)!important;color:var(--bf-white)!important;border:0!important}
+body.black-friday .whatsapp-btn:hover{background:var(--bf-control-hover)!important}
+body.black-friday .site-footer>.quiet-button{padding:10px 14px}
+body.black-friday :is(.hero-visit,.bf-banner a){border:0;text-decoration:underline;text-underline-offset:5px;text-decoration-color:#c894e1}
+@media(max-width:760px){body.black-friday.home-page .hero-actions .button{width:100%;justify-content:center}body.black-friday.home-page .hero-visit{justify-content:center;width:100%}}
+body.black-friday :is(.terrain-preview,.gallery-play,.play-symbol,.amenity-expand){border:0!important;box-shadow:none!important}
+/* Explorer toolbar: one surface per control group, no nested dark panels. */
+body.black-friday .scene-toolbar .scene-options{background:transparent!important;border:0!important;box-shadow:none!important;border-radius:14px}
+body.black-friday .scene-toolbar .scene-actions{background:#202020f2!important;border:0!important;box-shadow:0 6px 20px #0d0d0d26!important;gap:4px;padding:6px;border-radius:14px;max-width:none}
+body.black-friday .scene-toolbar .view-switch{background:#202020f2!important;border:0!important;gap:4px;padding:6px;border-radius:14px;box-shadow:0 6px 20px #0d0d0d26!important}
+body.black-friday .scene-toolbar button{background:transparent;color:var(--bf-white);border-radius:9px;min-height:40px;padding:9px 12px}
+@media(min-width:761px){
+ body.black-friday .scene-toolbar{flex-direction:column;align-items:flex-end;gap:10px}
+ body.black-friday .scene-toolbar .scene-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:330px;max-width:100%;justify-content:initial}
+ body.black-friday .scene-toolbar .scene-actions button{white-space:normal;text-align:center;line-height:1.3}
+ body.black-friday .scene-toolbar .scene-actions #reset{grid-column:span 2}
+ body.black-friday .scene-toolbar .scene-options{max-width:100%}
+}
+@media(min-width:1450px){body.black-friday .scene-toolbar{flex-direction:row;align-items:flex-start}body.black-friday .scene-toolbar .scene-actions{display:flex;width:auto;flex-wrap:nowrap}}
+@media(max-width:760px){body.black-friday .scene-toolbar .scene-actions{width:180px;display:grid;grid-template-columns:1fr}body.black-friday .scene-toolbar .scene-actions button{text-align:left}}
+@media(min-width:761px) and (max-width:1449px){body.black-friday .scene-toolbar .scene-actions{grid-template-columns:repeat(2,minmax(0,1fr));width:280px}body.black-friday .scene-toolbar .scene-actions #reset{grid-column:1/-1}}
+/* Progressive disclosure keeps the two camera modes visible. */
+body.black-friday .scene-toolbar{flex-direction:row;align-items:flex-start;justify-content:flex-end;gap:10px}
+body.black-friday .scene-toolbar .scene-options{position:relative;flex-shrink:0}
+body.black-friday .scene-toolbar .scene-options>summary{display:flex;align-items:center;justify-content:center;gap:10px;list-style:none;min-height:52px;padding:12px 16px;border:0;background:#202020f2;color:var(--bf-white);border-radius:14px;cursor:pointer;font-size:12px;font-weight:600}
+body.black-friday .scene-toolbar .scene-options>summary::-webkit-details-marker{display:none}
+body.black-friday .scene-toolbar .scene-options>summary:after{content:'+';font-size:18px}
+body.black-friday .scene-toolbar .scene-options[open]>summary:after{content:'−'}
+body.black-friday .scene-toolbar .scene-options .scene-actions{position:absolute;top:60px;right:0;display:grid;grid-template-columns:1fr;width:190px;max-width:none;padding:6px;gap:4px;z-index:5}
+body.black-friday .scene-toolbar .scene-options:not([open]) .scene-actions{display:none}
+body.black-friday .scene-toolbar .scene-actions button{text-align:left;min-height:44px;grid-column:auto}
+body.black-friday .scene-toolbar .scene-actions #reset{grid-column:auto}
+@media(max-width:760px){body.black-friday .scene-toolbar{justify-content:space-between;gap:6px}body.black-friday .scene-toolbar .scene-options>summary{padding:10px;min-height:50px;font-size:11px}body.black-friday .scene-toolbar .view-switch button{padding:8px;font-size:11px}}
+
+/* Filled surfaces use their background to define their shape. */
+body.black-friday :is(
+  .hero, .hero-location, .bf-banner, .gallery-stage, .gallery-type,
+  .gallery-tabs, .community-filters, .home-lot-finder, .amenity-card,
+  .amenity-icon, .home-closing, .ui-next-step, .form-card, .visit-card,
+  .contact-panel, .contact-bottom, .quote-card, .simulator-card,
+  .sim-results, #quoteState, #quoteResult, .coupon-entry, .story,
+  .legal-page, .legal-navigation a, .site-video, .plan-reference,
+  .terrain-video-dialog, .privacy-dialog, .explorer-panel,
+  .filter-disclosure, .scene-footer, .legend-disclosure > summary,
+  .zoom-controls, .model-details summary, .model-note, .plan-loading
+) {
+  border-color: transparent !important;
+}
+
+/* A brighter aerial view with shade concentrated behind the copy. */
+body.black-friday.home-page .hero:before {
+  background: linear-gradient(90deg,#0d0d0de0 0%,#0d0d0dc7 34%,#0d0d0d8f 52%,#0d0d0d0d 73%,transparent 86%);
+}
+body.black-friday.home-page .bf-hero-label {
+  display:table;
+  padding:5px 10px;
+  border-radius:6px;
+  background:var(--bf-inset);
+  color:#ffe1a7;
+  font-weight:800;
+}
+body.black-friday.home-page .bf-headline span {color:var(--bf-lilac)}
+@media (min-width:761px) and (max-width:1000px) {
+  body.black-friday.home-page .hero:before {
+    background:linear-gradient(90deg,#0d0d0de3 0%,#0d0d0dbd 51%,#0d0d0d4d 75%,transparent 100%);
+  }
+}
+body.black-friday.home-page .hero-actions {gap:12px}
+body.black-friday.home-page .hero-actions .home-quote {background:var(--bf-control)!important;color:var(--bf-white)!important}
+body.black-friday.home-page .hero-actions .home-quote:hover {background:var(--bf-control-hover)!important}
+body.black-friday.home-page .hero-actions .hero-visit {gap:8px;padding-inline:8px;text-shadow:0 1px 5px #000,0 1px 12px #000c}
+.home-page .purchase-icon {width:19px;height:19px;flex:none;vertical-align:middle}
+.home-page .project-facts dt {display:flex;align-items:center;gap:8px}
+.home-page .project-facts .purchase-icon {color:#dfadff}
+.home-page .project-map {margin:0;min-width:0}
+.home-page .project-map-frame {display:block;width:100%;height:clamp(290px,33vw,450px);border:0;border-radius:22px}
+.home-page .project-map .text-link {display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:8px}
+body.black-friday.home-page .home-decision {grid-template-columns:minmax(0,760px);justify-content:center;padding-top:32px}
+@media(max-width:760px){
+  body.black-friday.home-page .hero:before {background:linear-gradient(180deg,#0d0d0dd4 0%,#0d0d0dc0 49%,#0d0d0d99 78%,#0d0d0d1f 100%)}
+  body.black-friday.home-page .hero-actions .button {flex:1 1 auto;width:auto;gap:8px;padding-inline:12px}
+}
+
+/* Quote and payment simulator. */
+body.black-friday.quote-page .quote-context figcaption {
+  background:linear-gradient(transparent,#151515dd);
+}
+body.black-friday.quote-page :is(.form-card,#simulatorCard,#quoteResult,#quoteState,.coupon-entry) {
+  background:var(--bf-panel)!important;
+  color:var(--bf-white)!important;
+}
+body.black-friday.quote-page :is(#quoteResult,#quoteState,.coupon-entry) {
+  background:var(--bf-inset)!important;
+}
+body.black-friday.quote-page :is(.site-header nav a:not(.nav-cta),.form-intro>h1,.form-card :is(h2,h3,label,summary),#simulatorCard :is(h3,.sim-label)) {
+  color:var(--bf-white)!important;
+}
+body.black-friday.quote-page :is(.bf-live,.form-intro>p,.site-footer :is(p,small,a:not(.button)),.form-card :is(p,small,.optional),#simulatorCard :is(.sim-footnote,.sim-stat small),.quote-price-row del) {
+  color:var(--bf-muted)!important;
+}
+body.black-friday.quote-page :is(input:not([type=checkbox]),select,textarea) {
+  background-color:var(--bf-inset)!important;
+  color:var(--bf-white)!important;
+  border-color:var(--ui-border)!important;
+}
+body.black-friday.quote-page :is(.quote-price-row strong,#simDownAmount,#simMonthlyAmount) {
+  color:var(--bf-white)!important;
+  font-variant-numeric:tabular-nums;
+}
+body.black-friday.quote-page :is(.secondary,.quiet-button,.quiet-button-light,.navigation-toggle,.whatsapp-btn,.form-step,#simulatorCard .pill-btn:not([aria-pressed=true]):not(.active)) {
+  background:var(--bf-control)!important;
+  color:var(--bf-white)!important;
+}
+body.black-friday.quote-page :is(.secondary,.quiet-button,.quiet-button-light,.navigation-toggle,.whatsapp-btn,#simulatorCard .pill-btn:not([aria-pressed=true]):not(.active)):hover {
+  background:var(--bf-control-hover)!important;
+}
+
+body.black-friday.quote-page #quoteSummary {
+  background:var(--bf-inset);
+  color:var(--bf-white);
+  border:0;
+  padding:clamp(14px,3vw,22px);
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+body.black-friday.quote-page .payment-preview {
+  background:var(--bf-panel);
+  border:0;
+}
+body.black-friday.quote-page .payment-preview>summary {
+  color:var(--bf-white);
+}
+body.black-friday.quote-page #simulatorCard .sim-results {
+  background:var(--bf-inset)!important;
+  border:0;
+  gap:14px;
+}
+body.black-friday.quote-page #simulatorCard .sim-stat {
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+body.black-friday.quote-page #simulatorCard .sim-stat.highlight strong {
+  color:var(--bf-white)!important;
+}
+body.black-friday.quote-page #simulatorCard .sim-footnote {
+  margin-top:14px;
+  line-height:1.65;
+}
+body.black-friday.quote-page #simulatorCard .sim-row {
+  flex-wrap:wrap;
+}
+body.black-friday.quote-page #simulatorCard .pill-group {
+  justify-content:flex-start;
+}
+@media(max-width:390px) {
+  body.black-friday.quote-page #simulatorCard .sim-results {grid-template-columns:1fr}
+}
+
+/* Public components with their own backgrounds or foregrounds. */
+body.black-friday {
+  --brand:#8235b4;
+  --brand-dark:#70279f;
+  --lilac:var(--bf-control);
+  --home-purple:var(--bf-lilac);
+  --home-lilac:var(--bf-control);
+}
+body.black-friday :is(.form-card,.visit-card,.contact-panel,.home-lot-finder) {
+  box-shadow:none;
+}
+body.black-friday :is(.hero-finder,.contact-location,.visit-confirmation,.visit-confirmation .visit-preference,.trust-item,.loading-card,.connection-notice) {
+  background:var(--bf-panel);
+  border-color:var(--bf-divider);
+  color:var(--bf-white);
+}
+body.black-friday :is(.connection-notice p,.plan-loading-copy,.image-load-note,.amenity-stage,.home-page .terrain-preview small,.optional,.field-help,.form-expectation,.visit-desc,.advisor-item small,.quote-context-note,.sim-footnote) {
+  color:var(--bf-muted)!important;
+}
+body.black-friday :is(.quote-context-note a,.community-intro .text-link,.visit-confirmation .text-link,.terrain-video-dialog a,.lot-card .lot-promotion,.quote-state .text-link,.contact-link,.email) {
+  color:var(--bf-lilac);
+}
+body.black-friday:is(.visit-page,.quote-page) .eyebrow {
+  background:var(--bf-control);
+}
+body.black-friday :is(.visit-badge,.sim-badge,.result-badge,.video-dialog-heading small) {
+  color:var(--bf-lilac)!important;
+}
+body.black-friday .quote-state .badge-avail {color:#b8f0c4!important}
+body.black-friday .quote-state .badge-avail::before {background:#82c996}
+body.black-friday :is(.promotion-benefit,.advisor-item,.contact-location,.footer-bottom,.project-faq details) {
+  border-color:var(--bf-divider);
+}
+body.black-friday .promotion-benefit :is(p,small) {color:var(--bf-muted)!important}
+body.black-friday :is(.community-intro,.visit-preview) figcaption {background:#151515ed}
+body.black-friday :is(.privacy-dialog,.terrain-video-dialog)::backdrop,
+body.black-friday #panoramaDialog::backdrop {background:#000c}
+body.black-friday :is(#panoramaDialog,#panoramaStage,#panoramaDialog h2,#panoramaStatus,.terrain-video-dialog video) {
+  background:var(--bf-inset);
+  color:var(--bf-white);
+}
+body.black-friday :is(.skeleton,.image-pending,.image-load-failed) {background:var(--bf-control)}
+body.black-friday .skeleton::after {background:linear-gradient(90deg,transparent,#ffffff24,transparent)}
+body.black-friday .plan-loading-spinner {border-color:var(--bf-divider);border-top-color:var(--bf-lilac)}
+body.black-friday :is(.gallery-play,.play-symbol,.connection-notice button,#loading.plan-loading button,.mobile-selection-link) {
+  background:var(--bf-control);
+  color:var(--bf-white);
+  border:0;
+}
+body.black-friday :is(.gallery-play,.connection-notice button,#loading.plan-loading button,.mobile-selection-link):hover {
+  background:var(--bf-control-hover);
+  color:var(--bf-white);
+}
+body.black-friday :is(.gallery-tabs,.community-filters) button:not([aria-selected=true]):not([aria-pressed=true]):hover {
+  background:var(--bf-control-hover);
+  color:var(--bf-white);
+}
+body.black-friday.home-page :is(.home-intro-bar,.amenity-card-detail,.project-facts,.project-facts>div) {border-color:var(--bf-divider)}
+body.black-friday.home-page .home-intro-bar p {color:var(--bf-muted)}
+body.black-friday.home-page .home-intro-bar nav a {color:var(--bf-white)}
+body.black-friday.home-page .home-intro-bar nav a:hover {color:var(--bf-lilac)}
+body.black-friday.home-page .home-steps li::before,
+body.black-friday.home-page .visit-expectations li::before {
+  background:var(--bf-control);
+  color:var(--bf-white);
+  border-color:transparent;
+}
+body.black-friday.home-page .home-steps li::after {background:var(--bf-divider)}
+body.black-friday.home-page .project-faq summary::after {color:var(--bf-lilac)}
+body.black-friday.home-page .hero-disclosure {
+  background:#151515ed;
+  color:var(--bf-white);
+  border-radius:6px;
+  padding:4px 8px;
+}
+body.black-friday.home-page .hero-copy>.hero-assurance {color:var(--bf-white)}
+body.black-friday .explorer-panel .filter-disclosure>summary {color:var(--bf-white)}
+body.black-friday .lot-status.sold {color:var(--bf-lilac)!important}
+
+body.black-friday .brand-official img {background:transparent;padding:0;border-radius:0;object-fit:contain}
+body.black-friday.quote-page .quote-price-row {display:grid;gap:3px;align-items:start}
+body.black-friday.quote-page .quote-price-row .price-list-label {font-size:12px;color:var(--bf-muted)}
+body.black-friday.quote-page .quote-price-row del {font-size:15px;line-height:1.4}
+body.black-friday.quote-page .quote-price-row .price-final-label {font-size:13px;margin-top:10px}
+body.black-friday.quote-page .quote-price-row.has-discount strong {color:#e2b7ff!important;font-size:clamp(34px,4vw,48px);line-height:1.15}
+body.black-friday .lot-card > .lot-original-price {display:block;font-size:14px;color:var(--bf-muted)}
+body.black-friday .lot-card > .lot-price {font-size:clamp(30px,3vw,42px);color:#e2b7ff!important;line-height:1.2}
+body.black-friday .lot-card > .price-final-label {display:block;margin-top:10px;font-size:13px}
+body.black-friday .referral-advisor {color:#e2b7ff!important;font-weight:700}
+
+.quote-page .coupon-highlight{margin:24px 0;padding:24px;border:1px solid #a97aff;border-radius:16px;background:linear-gradient(135deg,#281641,#18121f);box-shadow:0 0 30px #8a31ee18}.quote-page .coupon-highlight h3{margin:0 0 8px;font-size:1.35rem;color:#e3ccff}.quote-page .coupon-highlight>p{color:#ddd0eb}.quote-page .coupon-highlight input{border-color:#a97aff;font-weight:650;letter-spacing:.04em}.quote-page .coupon-highlight .button{white-space:nowrap}.quote-page .form-card .simulator-card{margin:24px 0}.quote-page .sim-header p{font-size:.9rem;color:#d7c8e5;margin:8px 0}.quote-page .sim-results strong{font-variant-numeric:tabular-nums}@media(max-width:520px){.quote-page .coupon-highlight{padding:18px}.quote-page .coupon-controls{display:grid;grid-template-columns:1fr}.quote-page .sim-row{align-items:flex-start;flex-direction:column;gap:12px}.quote-page .pill-group{flex-wrap:wrap}}
+
+body.black-friday .site-header .brand-official img{width:144px;height:auto;max-height:100px}body.black-friday .site-footer .brand-official img{width:176px;height:auto}.cookie-banner{position:fixed;z-index:10000;bottom:20px;left:20px;width:min(620px,calc(100vw - 40px));box-sizing:border-box;padding:24px;background:#18131f;color:#f6f1fc;border:1px solid #8666a4;border-radius:16px;box-shadow:0 12px 60px #0009}.cookie-banner h2{font-size:1.25rem;margin:0 0 12px}.cookie-banner p{font-size:14px;line-height:1.6;margin:0 0 12px}.cookie-banner a,.privacy-dialog a{color:#d8baff}.cookie-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.cookie-actions button{flex:1;min-width:130px;background:#352346;color:white;border:1px solid #ae8dcc;border-radius:9px;padding:12px;font:inherit;cursor:pointer}.cookie-actions button:focus-visible{outline:3px solid #d5b4ff;outline-offset:3px}.privacy-dialog{max-width:560px;width:calc(100vw - 40px);box-sizing:border-box;max-height:85dvh;overflow:auto;background:#18131f;color:#f6f1fc;border:1px solid #8666a4;border-radius:16px;padding:26px}.privacy-dialog::backdrop{background:#0009}.privacy-dialog label{display:flex;gap:12px;margin-top:20px}.privacy-dialog input{width:20px;height:20px;accent-color:#9258ea}.privacy-dialog p{line-height:1.6}.legal-page{max-width:900px;margin-inline:auto}.legal-page p,.legal-page li{line-height:1.8}.legal-navigation{display:flex;gap:20px;flex-wrap:wrap;margin:24px 0}@media(max-width:760px){body.black-friday .site-header .brand-official img{width:110px;max-height:80px}.cookie-banner{bottom:10px;left:10px;width:calc(100vw - 20px);padding:18px;max-height:75dvh;overflow:auto}.cookie-actions button{font-size:13px}.site-footer>a{margin-right:16px}}

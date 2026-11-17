@@ -1,0 +1,42 @@
+/* Stable theme renderer. Theme files contain data, never executable CSS or JS. */
+body.seasonal-theme{background:var(--season-surface)}
+.seasonal-theme :is(.site-header,.site-footer,.legal-page){background-color:var(--season-surface)}
+.seasonal-theme :is(.quote-card,.visit-card,.form-card,.story,.home-lot-finder,.project-distribution){border-color:var(--season-border)}
+.seasonal-theme :is(.button,.primary,.nav-cta){background:var(--season-gradient);color:#fff}
+.seasonal-theme.home-page :is(.home-closing,.block-stat-track>span),.seasonal-theme.interface-page .ui-next-step{background:var(--season-gradient)}
+.seasonal-theme :is(.section-kicker,.ui-kicker,.eyebrow,.quote-currency,.project-facts dt){color:var(--season-accent)}
+.seasonal-theme .site-header nav a[aria-current]{color:var(--season-accent)}
+.seasonal-theme :is(a,button,input,select,summary):focus-visible{outline-color:var(--season-accent)}
+.seasonal-strip{position:relative;min-height:46px;padding:8px 5%;display:flex;align-items:center;justify-content:center;gap:22px;isolation:isolate;overflow:hidden;background:var(--season-gradient);color:#fff;font:600 13px/1.5 'Nunito Morada','Segoe UI',sans-serif}
+.seasonal-strip>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.18;z-index:-1}
+.seasonal-strip>button{border:1px solid #ffffff80;border-radius:9px;background:#ffffff14;color:white;min-height:36px;padding:6px 12px;font-size:12px;box-shadow:none;cursor:pointer}
+.seasonal-strip>button:disabled{opacity:.8;cursor:default}
+.theme-decoration-host:not(.scene-panel):not(.hero){position:relative}
+.seasonal-ornaments{position:absolute;inset:0;height:170px;overflow:hidden;pointer-events:none;z-index:1}
+.seasonal-ornaments>span{position:absolute;display:block;width:20px;height:24px;opacity:.55;animation:seasonal-drift 6s linear infinite alternate}
+.seasonal-ornaments svg{display:block;width:100%;height:100%}
+.seasonal-ornaments[data-paused=true]>span{animation-play-state:paused}
+@keyframes seasonal-drift{from{transform:translateY(0) rotate(-8deg)}to{transform:translateY(18px) rotate(12deg)}}
+@media(min-width:761px){.seasonal-theme .explorer{height:calc(100dvh - 82px - var(--season-banner-height,46px))}.seasonal-theme .demo-notice+main.explorer{height:calc(100dvh - 122px - var(--season-banner-height,46px))}}
+@media(max-width:760px){.seasonal-strip{padding:7px 16px;font-size:12px;justify-content:space-between;gap:12px}.seasonal-strip>button{min-height:40px;font-size:11px}.seasonal-ornaments>span{width:16px;height:18px}}
+@media(prefers-reduced-motion:reduce){.seasonal-ornaments>span{animation:none}}
+/* Admin importer uses the existing interface language. */
+.theme-card{padding:20px;border:1px solid #dfd2e7;border-radius:17px;background:white;margin:14px 0}.theme-card h3{margin:0 0 10px;font-size:22px}.theme-card p{font-size:13px}.theme-swatches{display:flex;gap:8px;margin:13px 0}.theme-swatches span{width:30px;height:30px;border-radius:50%;border:1px solid #aaa5}.theme-actions{display:flex;gap:10px;flex-wrap:wrap}.theme-actions button{min-height:44px}.theme-import{display:grid;gap:15px;max-width:760px;padding:24px;border:1px solid #dfd2e7;background:white;border-radius:18px}.theme-import input{max-width:100%}#themeStatus{overflow-wrap:anywhere}
+/* Background and decorative controls remain separate from readable card surfaces. */
+body.seasonal-theme{background:var(--season-background,var(--season-surface))}
+.seasonal-theme.home-page :is(.section-heading h2,.section-heading>p,.project-details-copy h2,.project-details-copy>p,.project-facts dt,.project-facts dd,.arrival-copy h2,.arrival-copy>p,.visit-expectations li,.home-finder-section>div>h2,.home-finder-section>div>p,.decision-copy h2,.home-steps strong,.home-steps p,.project-faq h3,.project-faq summary,.project-faq p,.project-infrastructure h3,.project-infrastructure p){color:var(--season-text)}
+.seasonal-theme.interface-page :is(.form-intro>h1,.form-intro>p,.contact-layout>div>h1,.contact-layout>div>p,.community-intro>div>h1,.community-intro>div>p,.ui-section-heading h2){color:var(--season-text)}
+html[data-season-button=pill] .seasonal-theme :is(.button,.primary,.nav-cta){border-radius:999px}
+html[data-season-button=ticket] .seasonal-theme :is(.button,.primary,.nav-cta){border-radius:8px;border:1px dashed #ffffffa8;outline-offset:4px}
+html[data-season-button=stone] .seasonal-theme :is(.button,.primary,.nav-cta){border-radius:25px 25px 7px 7px;border:1px solid #ffffff60;box-shadow:inset 0 2px 3px #ffffff25,0 4px 0 var(--season-deep)}
+html[data-season-button=organic] .seasonal-theme :is(.button,.primary,.nav-cta){border-radius:28px 16px 26px 15px}
+.seasonal-page-accents{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1;color:var(--season-accent)}
+.seasonal-page-accents svg{position:absolute;display:block}
+.seasonal-page-accents .theme-accent-cobwebs{top:0;left:0;width:140px;height:140px;color:#f7f3ee;opacity:.6}
+.seasonal-page-accents .theme-accent-zombie{right:3%;bottom:180px;width:86px;height:138px;color:var(--season-deep);filter:drop-shadow(0 7px 10px #0003)}
+.seasonal-page-accents .theme-accent-flowers{left:18px;bottom:18px;width:75px;height:75px;color:var(--season-accent);opacity:.8}
+.seasonal-page-accents .theme-accent-ribbon{right:10px;top:0;width:110px;height:110px;color:var(--season-accent);opacity:.85}
+@media(max-width:760px){.seasonal-page-accents .theme-accent-cobwebs{width:80px;height:80px;opacity:.45}.seasonal-page-accents .theme-accent-zombie{top:12px;right:8px;bottom:auto;width:40px;height:65px}.seasonal-page-accents .theme-accent-ribbon{width:65px;height:65px}.seasonal-page-accents .theme-accent-flowers{width:45px;height:45px;left:7px;bottom:8px}}
+
+.seasonal-theme.admin-body .admin-shell{background:var(--season-surface)}
+.seasonal-theme.home-page :is(.home-intro-bar p,.home-intro-bar nav a,.project-details-copy>.text-link,.project-infrastructure a,.arrival-map){color:var(--season-text)}

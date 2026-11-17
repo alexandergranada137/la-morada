@@ -1,0 +1,51 @@
+import {pbkdf2Async} from '@noble/hashes/pbkdf2.js';
+import {sha256 as nobleSha256} from '@noble/hashes/sha2.js';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import { DatabaseSync } from 'node:sqlite';
+import ts from 'typescript';
+const sqlite=new DatabaseSync(':memory:');
+for(const file of fs.readdirSync('drizzle').filter(f=>f.endsWith('.sql')).sort())sqlite.exec(fs.readFileSync('drizzle/'+file,'utf8'));
+function statement(sql,args=[]){return {bind(...next){return statement(sql,next)},async first(){return sqlite.prepare(sql).get(...args)||null},async all(){return {results:sqlite.prepare(sql).all(...args)}},async run(){const result=sqlite.prepare(sql).run(...args);return {...result,meta:{changes:Number(result.changes)}}},sql,args};}
+const DB={prepare:sql=>statement(sql),async batch(statements){sqlite.exec('BEGIN');try{for(const s of statements)sqlite.prepare(s.sql).run(...s.args);sqlite.exec('COMMIT');}catch(e){sqlite.exec('ROLLBACK');throw e;}}};
+const lots=JSON.parse(fs.readFileSync('lib/lots.json','utf8'));
+let source=fs.readFileSync('lib/morada-api.ts','utf8').replace(/^import .*;\r?\n/gm,'').replaceAll('import.meta.env.DEV','false');
+source=ts.transpile(source,{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022});
+const security={};new Function('exports','pbkdf2Async','nobleSha256',ts.transpile(fs.readFileSync('lib/admin-security.ts','utf8').replace(/^import .*;\r?\n/gm,''),{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}))(security,pbkdf2Async,nobleSha256);
+const api={};new Function('exports','env','lots',...Object.keys(security),source)(api,{DB},lots,...Object.values(security));
+sqlite.prepare('INSERT INTO sessions(token,expires,created,last_seen) VALUES (?,?,?,?)').run(await security.sha256('test-session'),Date.now()+60000,Date.now(),Date.now());
+const request=(path,body,auth=true,origin='https://morada.test')=>new Request('https://morada.test/api/'+path,{method:body?'POST':'GET',headers:{'Content-Type':'application/json',Origin:origin,...(auth?{Cookie:'morada_admin=test-session'}:{})},...(body?{body:JSON.stringify(body)}:{})});
+async function post(path,body,auth=true,code=200){const r=await api.POST(request(path,body,auth));assert.equal(r.status,code);return r.json();}
+async function get(path,auth=true,code=200){const r=await api.GET(request(path,null,auth));assert.equal(r.status,code);return r.json();}
+
+await get('asesores',false,401);
+await post('asesores',{name:'Ana Prueba',active:true},false,401);
+const baseline=await get('admin?view=activity');
+const advisor=await post('asesores',{name:'Ana Prueba',active:true});
+assert.match(advisor.id,/^[a-f0-9]{32}$/);
+assert.equal((await get('asesores?ref='+advisor.id,false)).advisor.name,'Ana Prueba');
+await post('admin',{action:'save',rows:[{id:'A-01',area:120,price:120000,usdPrice:36000,status:'available'}]});
+const lead={name:'Cliente Prueba',email:'cliente@example.invalid',phone:'999999999',lotId:'A-01',currency:'USD',consent:true,paymentMethod:'installments',downPct:30,months:36,ref:advisor.id,advisor_name:'Nombre falsificado',requestId:crypto.randomUUID()};
+const receipt=await post('clientes',lead,false);
+assert.equal(receipt.advisor.name,'Ana Prueba');assert.match(receipt.ticket,/10[,.]800/);assert.match(receipt.ticket,/700/);assert.match(receipt.ticket,/36 meses/);
+assert.equal(new URL(receipt.whatsappUrl).searchParams.get('text'),receipt.ticket);
+assert.equal(new URL(receipt.whatsappUrl).pathname,'/51966030329');
+assert.equal((await post('clientes',lead,false)).ticket,receipt.ticket);
+await post('clientes',{...lead,email:'otro@example.invalid'},false,409);
+let report=(await get('asesores')).report.find(row=>row.id===advisor.id);assert.equal(report.requests,1);assert.equal(report.clients,1);assert.equal(report.new_clients,1);
+await post('clientes',{action:'update',id:lead.requestId,stage:'visit',notes:'Visita coordinada'});
+report=(await get('asesores')).report.find(row=>row.id===advisor.id);assert.equal(report.visits,1);assert.equal(report.new_clients,0);
+await post('asesores',{id:advisor.id,name:'Ana Prueba',active:false});
+await get('asesores?ref='+advisor.id,false,404);
+const direct=await post('clientes',{...lead,requestId:crypto.randomUUID(),downPct:10,months:100},false);
+assert.equal(direct.advisor,null);assert.match(direct.ticket,/30%/);assert.match(direct.ticket,/36 meses/);
+await post('asesores',{id:advisor.id,name:'Ana Prueba',active:true});
+await get('asesores?ref='+advisor.id,false);
+await post('asesores',{action:'delete',id:advisor.id});
+await get('asesores?ref='+advisor.id,false,404);
+const data=await get('asesores');assert.equal(data.items.length,0);assert.equal(data.report.find(row=>row.id===advisor.id).visits,1);
+assert.equal(sqlite.prepare('SELECT advisor_name FROM leads WHERE id=?').get(lead.requestId).advisor_name,'Ana Prueba');
+const activity=await get('admin?'+new URLSearchParams({view:'activity',...baseline.cursors}));assert.equal(activity.activity.leads.length,2);assert.ok(activity.activity.events.length>=4);assert.equal(activity.activity.revisions.length,1);
+const next=await get('admin?'+new URLSearchParams({view:'activity',...activity.cursors}));assert.equal(next.activity.leads.length,0);await get('admin?view=activity',false,401);
+console.log('PASS: advisor authorization, lifecycle, attribution, historical report, ticket prices, 30%/36 limits, WhatsApp receipt, deduplication and activity cursors.');
+sqlite.close();

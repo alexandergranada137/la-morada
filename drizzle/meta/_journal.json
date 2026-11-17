@@ -1,0 +1,69 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1792796452169,
+      "tag": "0000_numerous_miek",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1793214549711,
+      "tag": "0001_needy_vapor",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1793318400000,
+      "tag": "0002_dual_prices_history",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1793318400001,
+      "tag": "0003_content_leads",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1793318400002,
+      "tag": "0004_sold_state_guard",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1793318400007,
+      "tag": "0005_admin_security_tools",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1793318400008,
+      "tag": "0006_promotion_usage",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1793318400009,
+      "tag": "0007_advisor_referrals",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1793318400010,
+      "tag": "0008_advisor_archive",
+      "breakpoints": true
+    }
+  ]
+}

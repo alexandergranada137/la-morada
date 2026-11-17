@@ -1,0 +1,46 @@
+{
+  "A": {
+    "file": "assets/panoramas/a.webp",
+    "label": "Manzana A"
+  },
+  "C": {
+    "file": "assets/panoramas/c.webp",
+    "label": "Manzana C"
+  },
+  "D": {
+    "file": "assets/panoramas/d.webp",
+    "label": "Manzana D"
+  },
+  "E": {
+    "file": "assets/panoramas/e.webp",
+    "label": "Manzana E"
+  },
+  "F": {
+    "file": "assets/panoramas/f.webp",
+    "label": "Manzana F"
+  },
+  "G": {
+    "file": "assets/panoramas/g.webp",
+    "label": "Manzana G"
+  },
+  "H": {
+    "file": "assets/panoramas/h.webp",
+    "label": "Manzana H"
+  },
+  "J": {
+    "file": "assets/panoramas/j.webp",
+    "label": "Manzana J"
+  },
+  "K": {
+    "file": "assets/panoramas/k.webp",
+    "label": "Manzana K"
+  },
+  "PARQUE": {
+    "file": "assets/panoramas/parque.webp",
+    "label": "Parque"
+  },
+  "PORTICO": {
+    "file": "assets/panoramas/portico.webp",
+    "label": "Pórtico"
+  }
+}

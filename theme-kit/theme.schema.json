@@ -1,0 +1,300 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:la-morada:theme:1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "const": "la-morada-theme"
+    },
+    "version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[-a-z0-9]{1,60}$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "colors": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "accent": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "deep": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "surface": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "sky": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "background": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        }
+      },
+      "required": [
+        "accent",
+        "deep",
+        "surface",
+        "sky"
+      ]
+    },
+    "images": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "hero": {
+          "type": "string",
+          "maxLength": 310000,
+          "pattern": "^$|^data:image/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$"
+        },
+        "banner": {
+          "type": "string",
+          "maxLength": 310000,
+          "pattern": "^$|^data:image/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$"
+        }
+      },
+      "required": [
+        "hero",
+        "banner"
+      ]
+    },
+    "decoration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "motif": {
+          "enum": [
+            "none",
+            "stars",
+            "snow",
+            "confetti",
+            "leaves"
+          ]
+        },
+        "animated": {
+          "type": "boolean"
+        },
+        "density": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 12
+        }
+      },
+      "required": [
+        "motif",
+        "animated",
+        "density"
+      ]
+    },
+    "scene": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "decorations": {
+          "type": "boolean"
+        },
+        "models": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "christmas-tree",
+                  "gift-box",
+                  "snowman",
+                  "pumpkin",
+                  "flag",
+                  "flowers",
+                  "zombie"
+                ]
+              },
+              "slot": {
+                "enum": [
+                  "park-north",
+                  "park-center",
+                  "park-south"
+                ]
+              },
+              "scale": {
+                "type": "number",
+                "minimum": 0.5,
+                "maximum": 1.5
+              }
+            },
+            "required": [
+              "kind",
+              "slot",
+              "scale"
+            ]
+          }
+        },
+        "elements": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "vegetation": {
+              "type": "string",
+              "pattern": "^$|^#[0-9a-fA-F]{6}$"
+            },
+            "amenities": {
+              "type": "string",
+              "pattern": "^$|^#[0-9a-fA-F]{6}$"
+            },
+            "trunks": {
+              "type": "string",
+              "pattern": "^$|^#[0-9a-fA-F]{6}$"
+            },
+            "facades": {
+              "type": "string",
+              "pattern": "^$|^#[0-9a-fA-F]{6}$"
+            },
+            "roofs": {
+              "type": "string",
+              "pattern": "^$|^#[0-9a-fA-F]{6}$"
+            },
+            "furniture": {
+              "type": "string",
+              "pattern": "^$|^#[0-9a-fA-F]{6}$"
+            },
+            "water": {
+              "type": "string",
+              "pattern": "^$|^#[0-9a-fA-F]{6}$"
+            },
+            "commonGround": {
+              "type": "string",
+              "pattern": "^$|^#[0-9a-fA-F]{6}$"
+            },
+            "surroundings": {
+              "type": "string",
+              "pattern": "^$|^#[0-9a-fA-F]{6}$"
+            }
+          },
+          "required": [
+            "vegetation",
+            "amenities"
+          ]
+        },
+        "timeOfDay": {
+          "enum": [
+            "day",
+            "sunset",
+            "night"
+          ]
+        },
+        "weather": {
+          "enum": [
+            "none",
+            "snow"
+          ]
+        },
+        "groundCover": {
+          "enum": [
+            "none",
+            "snow",
+            "leaves",
+            "flowers"
+          ]
+        },
+        "style": {
+          "enum": [
+            "natural",
+            "winter",
+            "autumn",
+            "spring",
+            "festive"
+          ]
+        },
+        "coverStrength": {
+          "enum": [
+            "subtle",
+            "balanced"
+          ]
+        }
+      },
+      "required": [
+        "enabled",
+        "decorations"
+      ]
+    },
+    "schedule": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "start": {
+          "type": "string",
+          "pattern": "^$|^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "end": {
+          "type": "string",
+          "pattern": "^$|^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ]
+    },
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "buttonStyle",
+        "accents"
+      ],
+      "properties": {
+        "buttonStyle": {
+          "enum": [
+            "default",
+            "pill",
+            "ticket",
+            "stone",
+            "organic"
+          ]
+        },
+        "accents": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 3,
+          "items": {
+            "enum": [
+              "cobwebs",
+              "zombie",
+              "flowers",
+              "ribbon"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "format",
+    "version",
+    "id",
+    "name",
+    "colors",
+    "images",
+    "decoration",
+    "scene",
+    "schedule"
+  ]
+}

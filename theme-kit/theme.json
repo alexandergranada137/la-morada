@@ -1,0 +1,51 @@
+{
+  "format": "la-morada-theme",
+  "version": 1,
+  "id": "mi-tema",
+  "name": "Mi tema",
+  "colors": {
+    "accent": "#a440a1",
+    "deep": "#3d285e",
+    "surface": "#fbf9fc",
+    "sky": "#c7deeb",
+    "background": "#fbf9fc"
+  },
+  "images": {
+    "hero": "",
+    "banner": ""
+  },
+  "decoration": {
+    "motif": "stars",
+    "animated": false,
+    "density": 8
+  },
+  "scene": {
+    "enabled": true,
+    "decorations": true,
+    "models": [],
+    "elements": {
+      "vegetation": "",
+      "amenities": "",
+      "trunks": "",
+      "facades": "",
+      "roofs": "",
+      "furniture": "",
+      "water": "",
+      "commonGround": "",
+      "surroundings": ""
+    },
+    "timeOfDay": "day",
+    "weather": "none",
+    "groundCover": "none",
+    "style": "natural",
+    "coverStrength": "subtle"
+  },
+  "schedule": {
+    "start": "",
+    "end": ""
+  },
+  "page": {
+    "buttonStyle": "default",
+    "accents": []
+  }
+}

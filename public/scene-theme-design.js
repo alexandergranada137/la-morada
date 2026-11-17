@@ -1,0 +1,5 @@
+// Only visual roles: survey geometry, roads and lot-state materials are never targeted.
+export function resolveSceneDesign(theme){
+ const palettes={natural:{},winter:{vegetation:'#718b78',trunks:'#83766a',amenities:'#8c4d58',facades:'#e5e1d8',roofs:'#6b7e89',furniture:'#796f72',water:'#5b91a3',commonGround:'#b9c6b6',surroundings:'#acbcb5'},autumn:{vegetation:'#aa8246',trunks:'#756047',amenities:'#955742',facades:'#dfc6aa',roofs:'#77594d',furniture:'#8e694b',water:'#497e91',commonGround:'#a3a576',surroundings:'#b0a17b'},spring:{vegetation:'#658b4e',trunks:'#7f6e53',amenities:'#af7e99',facades:'#eee4d5',roofs:'#9b777d',furniture:'#8f7658',water:'#4e99ad',commonGround:'#92ad73',surroundings:'#93a87d'},festive:{vegetation:'#4f754b',trunks:'#78604d',amenities:theme?.colors?.accent,facades:'#eee4d5',roofs:theme?.colors?.deep,furniture:theme?.colors?.accent,water:'#4a8f9e',commonGround:'#89a06e',surroundings:'#93a177'}};
+ const result={...(palettes[theme?.scene?.style||'natural']||{})};for(const [key,value] of Object.entries(theme?.scene?.elements||{}))if(value)result[key]=value;return result;
+}
