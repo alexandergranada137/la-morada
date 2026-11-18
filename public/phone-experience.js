@@ -1,9 +1,11 @@
 (() => {
   const phone=matchMedia('(max-width:760px)');
+  const reduced=matchMedia('(prefers-reduced-motion:reduce)');
+  let summaryMotion,summarySignature='';
   const home=document.querySelector('.home-page main');
   if(home){
     const intro=document.createElement('section');intro.className='phone-home-intro';intro.setAttribute('aria-label','Bienvenido a La Morada');
-    intro.innerHTML='<figure><img src="assets/club-alegra-actualizado.webp" width="960" height="720" alt="Piscina y terraza proyectadas del Club Alegra" fetchpriority="high"><figcaption>Club Alegra · Imagen referencial</figcaption></figure><div class="phone-home-copy"><p class="phone-home-location">Uchumayo, Arequipa</p><h1>Un lugar para<br>imaginar tu vida.</h1><p>Descubre los lotes de La Morada, junto al entorno del valle. Elige tu ubicación y conoce el proyecto en persona.</p><a class="phone-home-primary" href="/recorrido">Explorar los lotes</a><a class="phone-home-visit" href="/contacto">Coordinar una visita</a><p class="phone-home-offer">Hasta <strong>US$ 6,000 de descuento</strong><span>Solo al contado. Consulta las condiciones de tu lote.</span></p></div>';
+    intro.innerHTML='<figure><img src="assets/club-alegra-actualizado.webp" width="960" height="720" alt="Piscina y terraza proyectadas del Club Alegra" fetchpriority="high"><figcaption>Club Alegra · Imagen referencial</figcaption></figure><div class="phone-home-copy"><p class="phone-home-location">Uchumayo, Arequipa</p><h1>Tu lugar<br>junto al valle.</h1><a class="phone-home-primary" href="/recorrido">Explorar los lotes</a><a class="phone-home-visit" href="/contacto">Coordinar una visita</a><p class="phone-home-offer">Hasta <strong>US$ 6,000 de descuento</strong><span>Solo al contado. Consulta las condiciones de tu lote.</span></p></div>';
     home.prepend(intro);
   }
   const main=document.querySelector('.explorer');
@@ -12,7 +14,7 @@
   const info=document.querySelector('#lotInfo');
   const currency=document.querySelector('.currency-switch');
   const root=document.createElement('section');root.className='phone-explorer';root.setAttribute('aria-label','Explorador móvil de lotes');
-  root.innerHTML='<header class="phone-explorer-heading"><div><h1>Elige tu lote</h1><p>Uchumayo · Arequipa</p></div><button type="button" class="phone-search">Buscar lote</button></header><section class="phone-lot-summary" aria-label="Lote seleccionado" aria-live="polite" hidden><div><p data-phone-lot></p><strong data-phone-price></strong><small data-phone-area></small></div><div class="phone-lot-actions"><a data-phone-quote>Cotizar</a><button type="button" class="phone-selected">Ver más</button></div></section>';
+  root.innerHTML='<header class="phone-explorer-heading"><div><h1>Elige tu lote</h1><p>Uchumayo · Arequipa</p></div><button type="button" class="phone-search">Buscar lote</button></header><section class="phone-lot-summary" aria-label="Lote seleccionado" aria-live="polite" data-empty="true"><div><p data-phone-lot></p><strong data-phone-price></strong><small data-phone-area></small></div><div class="phone-lot-actions"><a data-phone-quote>Cotizar</a><button type="button" class="phone-selected">Ver más</button></div><p class="phone-lot-hint">Tu lote empieza con un toque.<span>Selecciónalo en el plano o usa Buscar lote.</span></p></section>';
   const places=[];let lastLot='',active=false,initialized=false;
   function sheet(title,id){
     const dialog=document.createElement('dialog');dialog.className='phone-sheet';dialog.id=id;
@@ -54,13 +56,18 @@
     if(!active)return;
     const lot=document.querySelector('#lotList')?.value;
     const selected=document.querySelector('.explorer-panel.has-selection');
-    const summary=root.querySelector('.phone-lot-summary');summary.hidden=!selected;
+    const summary=root.querySelector('.phone-lot-summary');summary.dataset.empty=String(!selected);
     if(selected){
       summary.querySelector('[data-phone-lot]').textContent=info.querySelector('h2')?.textContent||'Lote seleccionado';
       summary.querySelector('[data-phone-price]').textContent=info.querySelector('.lot-price')?.textContent||info.querySelector('.lot-status')?.textContent||'';
       summary.querySelector('[data-phone-area]').textContent=info.querySelector('.lot-facts')?.textContent||'';
       const source=info.querySelector('a.primary'),quote=summary.querySelector('[data-phone-quote]');
       quote.hidden=!source;if(source){quote.href=source.href;quote.textContent=source.href.includes('cotizacion')?'Cotizar':'Consultar';}
+      const signature=[lot,summary.querySelector('[data-phone-price]').textContent,summary.querySelector('[data-phone-area]').textContent].join('|');
+      if(signature!==summarySignature){
+        summarySignature=signature;summaryMotion?.cancel();
+        if(!reduced.matches&&document.documentElement.dataset.input!=='keyboard')summaryMotion=summary.animate([{opacity:.25,transform:'translateY(6px)'},{opacity:1,transform:'translateY(0)'}],{duration:180,easing:'cubic-bezier(.23,1,.32,1)'});
+      }
       if(lot&&lot!==lastLot){lastLot=lot;if(searchSheet.open)searchSheet.close();}
     }
   }

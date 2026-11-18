@@ -1,0 +1,45 @@
+.home-community {max-width:1180px;margin:60px auto;padding:0 28px}
+.home-community>header {display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:22px}
+.home-community>header h2 {font-size:36px;margin:0}
+.home-community>header a {color:#dec0ef;font-size:14px;min-height:44px;display:flex;align-items:center;text-underline-offset:4px}
+.home-community-entries {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.home-community-entries>a {display:block;color:inherit;text-decoration:none;min-width:0}
+.home-community-entries img,.owner-entry-art {display:block;width:100%;height:210px;object-fit:cover;border-radius:10px;background:#33243f}
+.owner-entry-art {display:flex;align-items:center;justify-content:center;color:#d3b0e7;background:linear-gradient(140deg,#2d2037,#4b2d5f)}
+.owner-entry-art svg {width:100px;height:100px}
+.home-community-entries h3 {font:700 24px/1.3 'Nunito Morada','Segoe UI',sans-serif;margin:15px 0 4px}
+.home-community-entries p {font-size:14px;color:#cbbdd3;margin:0 0 12px;line-height:1.5}
+.home-community-entries span {font-size:13px;color:#dfb9f3;text-decoration:underline;text-underline-offset:4px}
+.home-reading {grid-column:1/-1;margin:18px 0;border-top:1px solid #5b4763;min-width:0}
+.home-reading>summary {min-height:52px;padding:16px 0;font-size:16px;color:#dfc6ed;cursor:pointer}
+.home-reading .project-infrastructure {margin-top:20px}
+.home-reading .project-facts {margin-top:14px}
+@media(max-width:760px){
+ body .mobile-dock {grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;height:calc(68px + env(safe-area-inset-bottom,0px));padding:4px 8px calc(4px + env(safe-area-inset-bottom,0px));background:#19151df5;border-top:1px solid #51415d;box-shadow:0 -5px 20px #0002;align-items:center}
+ body .mobile-dock a {display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:56px;min-width:0;padding:4px 1px;border:0!important;border-radius:10px;color:#bcb0c6;font-size:11px;line-height:1.2;white-space:nowrap;font-weight:600;text-decoration:none}
+ body .mobile-dock a::after {display:none!important}
+ body .mobile-dock svg {display:block;width:21px;height:21px;flex-shrink:0}
+ body .mobile-dock a[aria-current] {color:#f0c8ff;background:#a355c72b}
+ body .mobile-dock a[aria-current] svg {stroke-width:2.2}
+ body.phone-experience .mobile-dock {padding-top:4px;padding-bottom:calc(4px + env(safe-area-inset-bottom,0px))}
+ body.phone-experience.home-page #miradas {order:1}
+ body.phone-experience.home-page #espacios {order:2}
+ body.phone-experience.home-page .home-community {order:3}
+ body.phone-experience.home-page #detalles {order:4}
+ body.phone-experience.home-page #elegir {order:5}
+ body.phone-experience.home-page .home-project-note {order:6}
+ body.phone-experience.home-page .home-community {margin:10px 0 36px;padding:0 20px}
+ .home-community>header {gap:12px;margin-bottom:18px}
+ .home-community>header h2 {font-size:26px!important;max-width:220px}
+ .home-community-entries {gap:16px}
+ .home-community-entries img,.owner-entry-art {height:120px;border-radius:8px}
+ .owner-entry-art svg {width:70px;height:70px}
+ .home-community-entries h3 {font-size:19px;margin-top:12px}
+ .home-community-entries p {display:none}
+ .home-community-entries span {font-size:12px;display:flex;align-items:center;min-height:40px}
+ .home-reading>summary {font-size:15px}
+ .home-reading .project-infrastructure {padding-inline:0!important}
+ body.phone-experience.home-page .phone-home-copy h1 {margin-bottom:18px}
+ body.phone-experience.home-page .section-kicker {display:none}
+ body.phone-experience.home-page .project-details-copy h2 {font-size:28px}
+}
