@@ -21,49 +21,17 @@
     node.before(placeholder);
     return {node,placeholder};
   });
-  const toggle = document.createElement('button');
-  toggle.type = 'button';
-  toggle.className = 'navigation-toggle';
-  toggle.textContent = 'Menú';
-  toggle.setAttribute('aria-label', 'Abrir menú');
-  toggle.setAttribute('aria-haspopup', 'dialog');
-  toggle.setAttribute('aria-expanded', 'false');
-
-  const dialog = document.createElement('dialog');
-  dialog.className = 'mobile-menu-dialog';
-  dialog.id = 'mobileMenu';
-  dialog.setAttribute('aria-label', 'Menú de La Morada');
-  toggle.setAttribute('aria-controls', dialog.id);
-  const close = document.createElement('button');
-  close.type = 'button';
-  close.className = 'mobile-menu-close';
-  close.textContent = 'Cerrar menú';
-  dialog.append(close);
-  header.insertBefore(toggle, nav);
-  header.append(dialog);
-
-  function closeMenu() {
-    if (dialog.open) dialog.close();
-  }
-  toggle.onclick = () => {
-    dialog.showModal();
-    toggle.setAttribute('aria-expanded', 'true');
-    document.body.classList.add('mobile-menu-open');
-  };
-  close.onclick = closeMenu;
-  dialog.addEventListener('click', event => {
-    if (event.target === dialog || event.target.closest('a')) closeMenu();
-  });
-  dialog.addEventListener('close', () => {
-    toggle.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('mobile-menu-open');
-    if (mobile.matches) toggle.focus();
-  });
+  // The bottom navigation replaces the mobile menu; desktop keeps the full navigation.
+  const filters = document.querySelector('.explorer .filter-disclosure');
+  const filterPosition = filters ? document.createComment('Desktop lot search position') : null;
+  if (filters) filters.before(filterPosition);
+  const scene = document.querySelector('.scene-panel');
   function syncMenu() {
-    closeMenu();
-    nav.hidden = false;
-    if (mobile.matches) dialog.append(nav);
-    else header.insertBefore(nav, dialog);
+    nav.hidden = mobile.matches;
+    if (filters && scene) {
+      if (mobile.matches) scene.after(filters);
+      else filterPosition.after(filters);
+    }
     if (homeMain) {
       const sections = mobile.matches ? mobileSections : homeSections;
       for (const section of sections) homeMain.append(section);
@@ -80,6 +48,11 @@
   dock.className = 'mobile-dock';
   dock.setAttribute('aria-label', 'Accesos principales');
   const page = location.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/index';
+  for (const link of nav.querySelectorAll('a[href]')) {
+    const path = new URL(link.href).pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/index';
+    if (path === page) link.setAttribute('aria-current','page');
+    else link.removeAttribute('aria-current');
+  }
   for (const [name, href, path] of [
     ['Inicio', 'index.html', '/index'],
     ['Lotes', 'recorrido.html', '/recorrido'],
@@ -94,6 +67,12 @@
     dock.append(link);
   }
   document.body.append(dock);
+  // Secondary destinations remain available without a second menu on mobile.
+  const footerNav = document.querySelector('.site-footer nav');
+  if (footerNav && !footerNav.querySelector('a[href="comunidad.html"]')) {
+    const community = document.createElement('a');community.href='comunidad.html';community.textContent='Comunidad';footerNav.append(community);
+  }
+
   const lotInfo = document.querySelector('#lotInfo');
   if (lotInfo) {
     const updateQuoteLink = () => {

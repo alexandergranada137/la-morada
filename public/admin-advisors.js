@@ -36,7 +36,7 @@
     return data;
   }
   async function load() {
-    refresh.disabled = true;
+    refresh.disabled = true;list.setAttribute('aria-busy','true');window.MoradaLoading?.skeleton(list,{count:3});
     try {
       const response = await fetch('/api/asesores', {cache:'no-store'});
       const data = await response.json();
@@ -50,7 +50,7 @@
       for(const row of data.report||[]){
         const tr=element('tr');
         tr.append(element('th',row.name+(row.deleted?' · Enlace eliminado':'')));
-        for(const key of ['requests','clients','new_clients','contacted','visits','closed'])tr.append(element('td',String(row[key])));
+        for(const [key,label] of [['requests','Solicitudes'],['clients','Clientes únicos'],['new_clients','Nuevas'],['contacted','Contactadas'],['visits','Visitas'],['closed','Cerradas']]){const cell=element('td',String(row[key]));cell.dataset.label=label;tr.append(cell);}
         report.append(tr);
       }
       list.replaceChildren();
@@ -83,16 +83,19 @@
         const remove=element('button','Eliminar enlace','quiet-button');
         remove.type='button';
         remove.onclick=async()=>{
-          remove.disabled=true;
+          if(!confirm('¿Eliminar el enlace de '+advisor.name+'? Dejará de funcionar; sus clientes y resultados anteriores se conservarán.'))return;remove.disabled=true;
           try{await save({action:'delete',id:advisor.id});await load();status.textContent='Enlace eliminado. Sus solicitudes anteriores se conservan en los resultados.';}
           catch(error){status.textContent=error.message;remove.disabled=false;}
         };
-        actions.append(copy,toggle,remove);
-        card.append(label,actions);
+        const options=element('details',undefined,'advisor-options'),summary=element('summary','Enlace y opciones');
+        options.append(summary,label,toggle,remove);
+        actions.append(copy);
+        if(navigator.share){const share=element('button','Compartir','quiet-button');share.type='button';share.disabled=!advisor.active;share.onclick=async()=>{try{await navigator.share({title:'La Morada · '+advisor.name,url:url.href});}catch(error){if(error.name!=='AbortError')status.textContent='No se pudo compartir. Usa Copiar enlace.';}};actions.append(share);}
+        card.append(actions,options);
         list.append(card);
       }
-    } catch (error) { status.textContent=error.message || 'No se pudieron cargar los asesores.'; }
-    finally { refresh.disabled=false; }
+    } catch (error) { list.replaceChildren(element('p','No se pudieron cargar los enlaces. Pulsa Actualizar para reintentar.'));status.textContent=error.message || 'No se pudieron cargar los asesores.'; }
+    finally { refresh.disabled=false;list.removeAttribute('aria-busy'); }
   }
   form.onsubmit = async event => {
     event.preventDefault();
