@@ -31,7 +31,7 @@ let roadSurfaces=[];
 const terrainHeight=(x,y)=>heightAt(terrain,x,y);
 
 const scene = new THREE.Scene();
-const skyCanvas=document.createElement('canvas');skyCanvas.width=2;skyCanvas.height=512;const skyContext=skyCanvas.getContext('2d');const skyGradient=skyContext.createLinearGradient(0,0,0,512);skyGradient.addColorStop(0,'#92b6d0');skyGradient.addColorStop(.6,'#d4dee2');skyGradient.addColorStop(1,'#f7e6ce');skyContext.fillStyle=skyGradient;skyContext.fillRect(0,0,2,512);scene.background=new THREE.CanvasTexture(skyCanvas);scene.background.colorSpace=THREE.SRGBColorSpace;scene.fog=new THREE.Fog('#f0e4d5',1150,3900);
+const skyCanvas=document.createElement('canvas');skyCanvas.width=2;skyCanvas.height=512;const skyContext=skyCanvas.getContext('2d');const skyGradient=skyContext.createLinearGradient(0,0,0,512);skyGradient.addColorStop(0,'#92b6d0');skyGradient.addColorStop(.6,'#d4dee2');skyGradient.addColorStop(1,'#f7e6ce');skyContext.fillStyle=skyGradient;skyContext.fillRect(0,0,2,512);scene.background=new THREE.CanvasTexture(skyCanvas);scene.background.colorSpace=THREE.SRGBColorSpace;scene.fog=new THREE.Fog('#f0e4d5',950,2400);
 const seasonalTheme=createSceneTheme(scene,{getTerrain:()=>terrain,invalidate:()=>{changed=true;}});
 const camera = new THREE.PerspectiveCamera(42,1,2,3200);
 let renderer;
@@ -418,7 +418,7 @@ function focusLot(lot){
   const size=box.getSize(new THREE.Vector3());const distance=Math.max(size.x,size.z)*2+40;
   moveCamera(target.clone().add(new THREE.Vector3(distance*.4,distance,distance*.8)),target);
 }
-function setView(next){view=next;$('#perspective').setAttribute('aria-pressed',String(next==='perspective'));$('#topView').setAttribute('aria-pressed',String(next==='top'));moveCamera(center.clone().add(next==='top'?new THREE.Vector3(0,radius*1.35,1):new THREE.Vector3(radius*.15,radius*.8,radius*.8)),center.clone());}
+function setView(next){view=next;$('#perspective').setAttribute('aria-pressed',String(next==='perspective'));$('#topView').setAttribute('aria-pressed',String(next==='top'));moveCamera(center.clone().add(next==='top'?new THREE.Vector3(0,radius*(mobileLayout.matches?.95:1.35),1):new THREE.Vector3(radius*.15,radius*.8,radius*.8)),center.clone());}
 function stopTour(){flying=false;$('#tour').setAttribute('aria-pressed','false');$('#tour').textContent='Recorrido aéreo';}
 function removeLotVisual(id){
  const group=lotGroups.get(id);if(!group)return;
@@ -503,7 +503,7 @@ if(renderer){
      }
    }});
  new ResizeObserver(()=>{const w=host.clientWidth,h=host.clientHeight;if(!w||!h)return;const widthChanged=Math.abs(w-sceneWidth)>40;sceneWidth=w;sceneHeight=h;renderer.setSize(w,h);camera.aspect=w/h;if(w>760)camera.setViewOffset(w,h,-165,0,w,h);else camera.clearViewOffset();camera.updateProjectionMatrix();if(projectRadius&&widthChanged){const vertical=THREE.MathUtils.degToRad(camera.fov),horizontal=2*Math.atan(Math.tan(vertical/2)*camera.aspect);radius=projectRadius/Math.sin(Math.min(vertical,horizontal)/2)*.95;controls.maxDistance=mobileLayout.matches?Math.max(900,radius*1.45):900;if(!selected&&!flying)setView(view);}changed=true;}).observe(host);
- let last=performance.now();renderer.setAnimationLoop(t=>{const dt=Math.min((t-last)/1000,.05);last=t;if(document.hidden)return;if(cameraMove){const f=Math.min((t-cameraMove.started)/850,1),ease=1-(1-f)**3;camera.position.lerpVectors(cameraMove.from,cameraMove.to,ease);controls.target.lerpVectors(cameraMove.fromTarget,cameraMove.target,ease);if(f===1)cameraMove=null;changed=true;}if(flying){phase+=dt*.1;camera.position.set(center.x+Math.sin(phase)*radius,center.y+radius*.72,center.z+Math.cos(phase)*radius);controls.target.copy(center);changed=true;}controls.update();if(keepCameraAboveTerrain(camera,controls,terrain))changed=true;if(changed)updatePlaceMarkers();const labelsAnimating=updateFloatingLabels(t,dt);const themeAnimating=seasonalTheme.tick(t);if(changed||labelsAnimating||themeAnimating){renderer.render(scene,camera);cinematicGrade.apply(view==='top'?.40:.86);changed=false;}});
+ let last=performance.now();renderer.setAnimationLoop(t=>{const dt=Math.min((t-last)/1000,.05);last=t;if(document.hidden)return;if(cameraMove){const f=Math.min((t-cameraMove.started)/850,1),ease=1-(1-f)**3;camera.position.lerpVectors(cameraMove.from,cameraMove.to,ease);controls.target.lerpVectors(cameraMove.fromTarget,cameraMove.target,ease);if(f===1)cameraMove=null;changed=true;}if(flying){phase+=dt*.1;camera.position.set(center.x+Math.sin(phase)*radius,center.y+radius*.72,center.z+Math.cos(phase)*radius);controls.target.copy(center);changed=true;}controls.update();if(projectRadius&&scene.fog){const clearDistance=camera.position.distanceTo(center)-projectRadius*.15;scene.fog.near=Math.max(350,clearDistance);scene.fog.far=scene.fog.near+Math.max(1000,projectRadius*3.4);}if(keepCameraAboveTerrain(camera,controls,terrain))changed=true;if(changed)updatePlaceMarkers();const labelsAnimating=updateFloatingLabels(t,dt);const themeAnimating=seasonalTheme.tick(t);if(changed||labelsAnimating||themeAnimating){renderer.render(scene,camera);cinematicGrade.apply(view==='top'?.40:.86);changed=false;}});
  window.addEventListener('pagehide',()=>{seasonalTheme.dispose();renderer.setAnimationLoop(null);controls.dispose();cinematicGrade.dispose();renderer.dispose();},{once:true});
 }
 initialize();
