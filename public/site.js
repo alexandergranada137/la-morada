@@ -4,8 +4,7 @@
 })();
 // Global site utilities and interactive form logic for La Morada
 
-let savedCurrency;try{savedCurrency=localStorage.getItem('morada-currency');}catch{}
-let selectedCurrency = (new URLSearchParams(location.search).get('moneda') || savedCurrency) === 'USD' ? 'USD' : 'PEN';
+let selectedCurrency = new URLSearchParams(location.search).get('moneda') === 'USD' ? 'USD' : 'PEN';
 const currencyPicker = document.createElement('select');
 currencyPicker.setAttribute('aria-label','Moneda de los precios');
 currencyPicker.innerHTML = '<option value="PEN">Soles · S/</option><option value="USD">Dólares · US$</option>';
@@ -296,7 +295,7 @@ const money = value => new Intl.NumberFormat('es-PE', {
   document.querySelector('#removeCoupon').onclick=()=>{appliedCoupon='';couponInput.value='';couponStatus.textContent='';document.querySelector('#removeCoupon').hidden=true;updateQuoteDisplay();};
   document.querySelector('#requestType').addEventListener('change',updateQuoteDisplay);
   document.querySelectorAll('.pill-btn').forEach(button=>button.setAttribute('aria-pressed',String(button.classList.contains('active'))));
-  currencyPicker.addEventListener('change', () => { selectedCurrency=currencyPicker.value; try{localStorage.setItem('morada-currency',selectedCurrency);}catch{} updateQuoteDisplay(); });
+  currencyPicker.addEventListener('change', () => { selectedCurrency=currencyPicker.value; updateQuoteDisplay(); });
 
   ['#userName', '#userEmail', '#userPhone', '#userMessage'].forEach(id => {
     document.querySelector(id)?.addEventListener('input', updateWhatsAppLink);

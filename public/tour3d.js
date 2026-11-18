@@ -476,8 +476,8 @@ async function initialize(){
 }
 list.onchange=()=>{const lot=lots.find(l=>l.id===list.value);if(lot)showLot(lot);};
 for(const id of ['blockFilter','statusFilter','lotSearch'])$('#'+id).addEventListener('input',updateList);
-currency.value=(new URLSearchParams(location.search).get('moneda')||localStorage.getItem('morada-currency'))==='USD'?'USD':'PEN';
-currency.onchange=()=>{localStorage.setItem('morada-currency',currency.value);if(selected)showLot(selected,false);};
+currency.value=new URLSearchParams(location.search).get('moneda')==='USD'?'USD':'PEN';
+currency.onchange=()=>{if(selected)showLot(selected,false);};
 function zoomBy(factor){if(!controls)return;const offset=camera.position.clone().sub(controls.target);offset.setLength(THREE.MathUtils.clamp(offset.length()*factor,controls.minDistance,controls.maxDistance));moveCamera(controls.target.clone().add(offset),controls.target.clone());}
 $('#zoomIn3d').onclick=()=>zoomBy(.76);$('#zoomOut3d').onclick=()=>zoomBy(1.3);
 $('#numbersToggle').onclick=()=>{numbersEnabled=!numbersEnabled;$('#numbersToggle').setAttribute('aria-pressed',String(numbersEnabled));landscapeVisual?.repaint();changed=true;};

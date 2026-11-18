@@ -55,15 +55,25 @@
     document.body.append(dialog);
     dialog.showModal();
   }
+  document.querySelectorAll('[data-load-map]').forEach(button => {
+    button.onclick = () => {
+      const container=button.closest('.map-consent');
+      container.replaceWith(container.querySelector('template').content.cloneNode(true));
+    };
+  });
   const footer = document.querySelector('footer') || document.body;
+  const legalLinks=document.createElement('nav');
+  legalLinks.className='legal-footer-links';
+  legalLinks.setAttribute('aria-label','Información legal y cookies');
   for (const [text,href] of [['Aviso legal','aviso-legal.html'],['Privacidad','privacidad.html'],['Cookies','cookies.html'],['Condiciones','condiciones.html']]) {
     if (footer.querySelector('a[href="'+href+'"]')) continue;
     const link = document.createElement('a');
-    link.href = href;link.textContent = text;footer.append(link);
+    link.href = href;link.textContent = text;legalLinks.append(link);
   }
   const button = document.createElement('button');
   button.type = 'button';button.className = 'quiet-button';button.textContent = 'Configurar cookies';button.onclick = openPreferences;
-  footer.append(button);
+  legalLinks.append(button);
+  footer.append(legalLinks);
   if (!choice.version) document.body.append(banner);
   window.addEventListener('storage',event => {
     if (event.key !== key) return;
