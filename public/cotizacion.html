@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0d0d0d">
   <title>Cotiza tu terreno en Uchumayo · La Morada</title><meta name="description" content="Consulta área, disponibilidad y precios de los lotes de La Morada en soles o dólares. Solicita las condiciones al equipo comercial.">
   <link rel="stylesheet" href="premium.css">
-<link rel="stylesheet" href="site-design.css?v=design1"><link rel="stylesheet" href="interface-design.css?v=referrals1"><link rel="stylesheet" href="loading-ui.css"><script src="loading-ui.js"></script><link rel="stylesheet" href="theme-system.css?v=3"><script src="theme-engine.js?v=3" defer></script><link rel="stylesheet" href="black-friday.css?v=referrals3"><link rel="stylesheet" href="mobile.css?v=1"></head>
+<link rel="stylesheet" href="site-design.css?v=design1"><link rel="stylesheet" href="interface-design.css?v=referrals1"><link rel="stylesheet" href="loading-ui.css"><script src="loading-ui.js"></script><link rel="stylesheet" href="theme-system.css?v=3"><script src="theme-engine.js?v=3" defer></script><link rel="stylesheet" href="black-friday.css?v=referrals3"><link rel="stylesheet" href="mobile.css?v=4"></head>
 <body class="interface-page quote-page black-friday">
   <a class="skip" href="#contenido">Saltar al contenido</a>
 
@@ -17,7 +17,7 @@
     <section class="form-intro">
       <a class="back" href="recorrido.html">← Volver al explorador 3D</a>
       <span class="eyebrow black">Tu siguiente paso, con claridad</span>
-      <h1>Cotiza tu lote.<br>Decide con claridad.</h1>
+      <h1>Cotiza tu lote.<br class="quote-heading-break"><span class="quote-heading-detail">Decide con claridad.</span></h1>
       <p>Consulta el precio y el área. Luego, recibe atención del equipo comercial.</p>
 
       <figure class="quote-context"><img src="assets/render-oficial-perspectiva.webp" width="2400" height="1580" alt="Render oficial de La Morada junto al valle" loading="lazy"><figcaption>Uchumayo, Arequipa · Render oficial</figcaption></figure><p class="quote-context-note">Antes de decidir, consulta la documentación vigente y conoce el terreno. <a href="contacto.html">Coordinar una visita</a></p>
@@ -61,8 +61,7 @@
           Selecciona una manzana y un lote para ver el precio y el estado publicado.
         </div>
 
-        <label class="payment-method">Forma de pago<select id="paymentMethod" name="paymentMethod"><option value="cash">Al contado</option><option value="installments">En cuotas</option></select></label><section class="coupon-entry coupon-highlight" data-live-only aria-labelledby="couponTitle"><h3 id="couponTitle">Aplica tu cupón de descuento</h3><p>Ingresa tu código y consulta el precio final de tu lote.</p><div class="coupon-controls"><label>Código de cupón<input id="couponCode" maxlength="32" autocomplete="off" spellcheck="false" placeholder="ESCRIBE TU CUPÓN"></label><button id="applyCoupon" type="button" class="button">Aplicar cupón</button><button id="removeCoupon" type="button" class="text-link" hidden>Quitar cupón</button></div><p id="couponStatus" role="status"></p></section>
-      <div class="simulator-card" id="simulatorCard" hidden>
+        <label class="payment-method">Forma de pago<select id="paymentMethod" name="paymentMethod"><option value="cash">Al contado</option><option value="installments">En cuotas</option></select></label>      <div class="simulator-card" id="simulatorCard" hidden>
         <div class="sim-header">
           <span class="sim-badge">Explora una posibilidad de pago</span>
           <h3>Calcula tus cuotas aproximadas</h3>
@@ -104,6 +103,7 @@
       </div>
 
   
+<section class="coupon-entry coupon-highlight" data-live-only aria-labelledby="couponTitle"><h3 id="couponTitle">Aplica tu cupón de descuento</h3><p>Ingresa tu código y consulta el precio final de tu lote.</p><div class="coupon-controls"><label>Código de cupón<input id="couponCode" maxlength="32" autocomplete="off" spellcheck="false" placeholder="ESCRIBE TU CUPÓN"></label><button id="applyCoupon" type="button" class="button">Aplicar cupón</button><button id="removeCoupon" type="button" class="text-link" hidden>Quitar cupón</button></div><p id="couponStatus" role="status"></p></section>
 <label class="request-purpose">¿Qué necesitas?<select name="requestType" id="requestType"><option value="quote">Cotizar un lote</option><option value="hold">Solicitar separación</option></select></label></fieldset><fieldset class="form-group"><legend><span class="form-step" aria-hidden="true">2</span> ¿Cómo te contactamos?</legend><label>
           Nombre completo
           <input name="name" id="userName" autocomplete="name" required maxlength="100" placeholder="Tu nombre y apellido">
@@ -152,6 +152,6 @@
 
   <footer class="site-footer"><div class="footer-main"><a class="footer-brand brand-official" href="index.html" aria-label="La Morada · Inicio"><img src="assets/brand/logo-dark.webp" width="295" height="252" alt="La Morada · Viviendas Club" loading="lazy"></a><p>Un proyecto de Biosfera Inmobiliaria S.A.C.<br>Arequipa, Perú.</p><a class="button" href="recorrido.html">Explorar lotes en 3D</a></div><div class="footer-bottom"><p>RUC 20610186450 · Calle Lima 100, oficina 608, Yanahuara, Arequipa.</p><nav aria-label="Información"><a href="plano.html">Plano de referencia</a><a href="privacidad.html">Privacidad</a><a href="condiciones.html">Condiciones</a></nav></div><small>Imágenes y modelo referenciales. Consulta los precios, la disponibilidad y la documentación vigente antes de contratar.</small></footer>
 
-  <script src="consent.js?v=3"></script><script src="measurement.js?v=2"></script><script src="referral.js"></script><script src="site.js?v=mobile1"></script>
-<script type="module" src="interface.js"></script></body>
+  <script src="consent.js?v=3"></script><script src="measurement.js?v=2"></script><script src="referral.js"></script><script src="mobile-navigation.js?v=3"></script><script src="site.js?v=mobile2"></script>
+<script type="module" src="interface.js?v=mobile2"></script></body>
 </html>

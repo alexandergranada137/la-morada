@@ -6,6 +6,8 @@ img,video {max-width:100%}
 .legal-footer-links {display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding-block:16px}
 body.black-friday .site-header .brand-official img {width:118px;height:auto;max-height:88px}
 body.black-friday .site-footer .brand-official img {width:148px;height:auto}
+.mobile-dock {display:none}
+.mobile-menu-dialog:not([open]) {display:none}
 @media(max-width:760px) {
   *,*::before,*::after {box-sizing:border-box}
   body {min-width:0}
@@ -69,3 +71,159 @@ body.black-friday .site-footer .brand-official img {width:148px;height:auto}
   .cookie-actions {gap:8px}
   .cookie-actions button {flex:1 1 100%;font-size:14px}
 }
+
+/* Mobile navigation and content follow the buyer's path through the project. */
+@media(max-width:760px) {
+  body {padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+  body.mobile-menu-open {overflow:hidden}
+  body.black-friday .site-header {position:sticky;top:0;z-index:100;min-height:66px;padding-block:3px;gap:16px}
+  body.black-friday .site-header .brand-official img {width:78px;max-height:61px}
+  .navigation-toggle {min-height:44px;border-radius:10px;padding:10px 16px;font-size:14px}
+  .site-header .mobile-menu-dialog {
+    position:fixed;inset:12px 12px auto;margin:0;width:calc(100% - 24px);
+    max-width:none;max-height:calc(100dvh - 100px);padding:18px;
+    border:1px solid #53405e;border-radius:18px;background:#19151e;color:#f5f5f5;
+    overflow-y:auto;box-shadow:0 24px 80px #0008;
+  }
+  .mobile-menu-dialog::backdrop {background:#000b}
+  .mobile-menu-close {display:block;margin:0 0 14px auto;background:#34293e;color:white;border:1px solid #695476;border-radius:9px;padding:10px 14px}
+  .site-header .mobile-menu-dialog nav {position:static;display:grid;gap:0;inset:auto;max-height:none;padding:0;margin:0;width:100%;background:transparent;border:0;box-shadow:none;overflow:visible}
+  .site-header .mobile-menu-dialog nav a {display:flex;width:100%;min-height:62px;padding:14px 12px;font-size:22px;border-bottom:1px solid #46394e;white-space:normal;line-height:1.3}
+  .site-header .mobile-menu-dialog nav a[aria-current]::after {display:none}
+  .site-header .mobile-menu-dialog nav a.nav-cta {margin-top:14px;justify-content:center;border:0;border-radius:10px;font-size:18px;background:#8834b7;color:white}
+  .mobile-dock {position:fixed;z-index:110;inset:auto 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;min-height:68px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:#18151df5;border-top:1px solid #4a3b53;box-shadow:0 -6px 24px #0003}
+  .mobile-dock a {display:flex;align-items:center;justify-content:center;min-height:46px;border-radius:10px;color:#d6cbdc;font-size:13px;font-weight:700;text-decoration:none}
+  .mobile-dock a[aria-current] {background:#8236aa;color:white}
+  .mobile-dock a:active {background:#503460;color:white}
+  body:has(input:not([type=checkbox]):focus,textarea:focus,select:focus) .mobile-dock {display:none}
+  .cookie-banner {bottom:calc(82px + env(safe-area-inset-bottom,0px));max-height:60dvh}
+  .bf-banner {min-height:40px;padding:5px 16px;justify-content:space-between;gap:8px}
+  .bf-banner .bf-live {display:none}
+  .bf-banner strong {font-size:14px;padding:4px 8px}
+  .bf-banner a {font-size:11px;min-height:32px}
+  body.black-friday.home-page .bf-banner {display:none}
+
+  body.black-friday.home-page main {display:flex;flex-direction:column}
+  body.black-friday.home-page .hero {order:0;display:flex;flex-direction:column;min-height:0;margin:0;padding:0 0 24px;border:0;border-radius:0;background:#0d0d0d;overflow:visible}
+  body.black-friday.home-page .hero::before {display:none}
+  body.black-friday.home-page .hero-image {order:0;position:relative;inset:auto;width:100%;height:auto;aspect-ratio:16/10;min-height:0;max-height:none;flex:none;margin:0;border-radius:0;overflow:hidden;background:#211e23}
+  body.black-friday.home-page .hero-image :is(img,video) {position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+  body.black-friday.home-page .hero-copy {order:1;display:grid;width:100%;padding:22px 20px 0;gap:16px}
+  body.black-friday.home-page .hero h1 {margin:0;max-width:none;line-height:1.1}
+  body.black-friday.home-page .bf-hero-label {display:none}
+  body.black-friday.home-page .bf-headline {font-size:15px;line-height:1.2;letter-spacing:.01em;color:#e4b8ff}
+  body.black-friday.home-page .bf-headline br {display:none}
+  body.black-friday.home-page .bf-hero-subtitle {margin-top:8px;font-size:30px;line-height:1.12;max-width:18ch}
+  body.black-friday.home-page .hero-cash-offer {display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:0 12px;width:100%;margin:0;padding:14px 16px;border:1px solid #50345c;border-radius:12px;background:#201826;animation:none}
+  body.black-friday.home-page .hero-offer-lead {grid-column:1;grid-row:1;font-size:12px;line-height:1.4}
+  body.black-friday.home-page .hero-offer-value {grid-column:2;grid-row:1/4;display:flex;align-items:baseline;gap:3px;margin:0;font-size:43px;line-height:1;letter-spacing:-.04em;text-shadow:none;transform:none;filter:none}
+  body.black-friday.home-page .hero-offer-value .hero-offer-currency {font-size:20px;letter-spacing:-.02em}
+  body.black-friday.home-page .hero-offer-caption {grid-column:1;grid-row:2;font-size:17px;line-height:1.2;letter-spacing:0;text-shadow:none;transform:none}
+  body.black-friday.home-page .hero-offer-condition {grid-column:1;grid-row:3;font-size:11px;line-height:1.5;margin:4px 0 0}
+  body.black-friday.home-page .hero-buying {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0}
+  body.black-friday.home-page .hero-buying a {height:100%;padding:12px;background:#202020;border:0;border-radius:10px;min-width:0}
+  body.black-friday.home-page .hero-buying span {font-size:11px}
+  body.black-friday.home-page .hero-buying strong {font-size:15px;overflow-wrap:anywhere}
+  body.black-friday.home-page .hero-actions {display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:12px;margin:0;align-items:center}
+  body.black-friday.home-page .hero-actions .button {width:100%;padding:12px 10px;font-size:14px;min-height:48px}
+  body.black-friday.home-page .hero-visit {justify-content:center;gap:8px;margin:0;font-size:12px;border:0;min-height:48px}
+  body.black-friday.home-page .hero .terrain-preview {order:2;position:static;display:flex;width:calc(100% - 40px);margin:16px 20px 0;padding:10px 12px;gap:12px;border:1px solid #3a343e;border-radius:12px;transform:none}
+  body.black-friday.home-page .hero .terrain-preview img {width:62px;height:44px;border-radius:6px}
+  body.black-friday.home-page .hero .terrain-preview small {font-size:10px}
+  body.black-friday.home-page .hero .terrain-preview strong {font-size:12px}
+  body.black-friday.home-page .hero-video-meta {order:3;position:static;inset:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;margin:10px 20px 0;font-size:10px;text-align:left}
+  body.black-friday.home-page .hero-video-meta button {min-height:36px}
+  body.black-friday.home-page .home-finder-section {order:1;display:grid;gap:18px;margin:0;padding:28px 20px;background:#19151d;border-block:1px solid #3a303f}
+  body.black-friday.home-page .home-finder-section .section-kicker {display:none}
+  body.black-friday.home-page .home-finder-section h2 {font-size:27px;line-height:1.2;margin:0 0 8px}
+  body.black-friday.home-page .home-finder-section p {font-size:14px;margin:0;line-height:1.6}
+  body.black-friday.home-page .home-lot-finder {padding:0;border:0;box-shadow:none;background:transparent!important}
+  body.black-friday.home-page .finder-inputs {display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+  body.black-friday.home-page .finder-inputs select,body.black-friday.home-page .finder-inputs .button {width:100%;min-height:48px}
+  body.black-friday.home-page #espacios {order:2}
+  body.black-friday.home-page #miradas {order:3}
+  body.black-friday.home-page #detalles {order:4}
+  body.black-friday.home-page .home-section {padding-inline:20px;margin-block:0;padding-block:30px;min-width:0;max-width:100%}
+  body.black-friday.home-page .section-heading {display:block;margin-bottom:18px}
+  body.black-friday.home-page .section-heading h2 {font-size:28px;line-height:1.2}
+  body.black-friday.home-page .section-heading>p {font-size:14px;margin-top:12px}
+  body.black-friday.home-page .amenity-cards {display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:86%;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:0;padding-bottom:14px;overscroll-behavior-x:contain}
+  body.black-friday.home-page .amenity-card {scroll-snap-align:start;min-width:0}
+  body.black-friday.home-page .gallery-tabs {display:flex;gap:6px;overflow-x:auto;flex-wrap:nowrap;padding:4px 0 12px}
+  body.black-friday.home-page .gallery-tabs button {flex:0 0 auto;min-width:100px;white-space:nowrap;padding:10px 12px}
+  body.black-friday.home-page .gallery-panel figcaption {position:static;display:grid;gap:5px;padding:16px;background:#202020}
+  body.black-friday.home-page .gallery-panel figcaption strong {font-size:19px}
+  body.black-friday.home-page .gallery-panel figcaption span {font-size:12px}
+  body.black-friday.home-page .project-details {display:flex;flex-direction:column;gap:24px}
+  body.black-friday.home-page .project-details>* {width:100%;min-width:0}
+  body.black-friday.home-page .project-map {order:2}
+  body.black-friday.home-page .project-infrastructure {order:1}
+  body.black-friday.home-page .project-future {order:3}
+  body.black-friday.home-page .project-faq {order:4}
+
+  .explorer-page .bf-banner {display:none}
+  .explorer .panel-heading {padding:18px 18px 8px}
+  .explorer .panel-heading h1 {font-size:24px!important;line-height:1.2}
+  .explorer .back-link {display:none}
+  .explorer .filter-disclosure {margin:0 18px 12px}
+  .explorer .filter-disclosure>summary {min-height:48px;display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:#242027;border:1px solid #54465d;border-radius:10px;font-size:14px}
+  .explorer .filter-disclosure[open] {padding-bottom:12px}
+  .explorer .filters {margin-top:14px;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .explorer .filters label {font-size:12px}
+  .explorer .filters select,.explorer .filters input {width:100%;min-height:46px;padding-inline:10px;font-size:16px}
+  .explorer .scene-panel {height:clamp(350px,55svh,500px);min-height:350px;border-block:1px solid #46384f}
+  .explorer .currency-switch {margin-top:0;padding-block:14px}
+  .explorer .lot-card {border-radius:0;border-bottom:1px solid #46384f;padding:20px 18px}
+  .explorer .lot-card .primary {min-height:50px;font-size:16px}
+  .explorer .catalog-tools {padding-bottom:16px}
+  .explorer~.legal-footer-links {margin-inline:18px;font-size:12px}
+
+  .interface-page.quote-page .form-layout {display:flex;flex-direction:column;gap:16px;padding:22px 16px 30px;width:100%;margin:0}
+  .quote-page .form-intro {display:contents}
+  .quote-page .form-intro>.back {order:0;font-size:12px}
+  .quote-page .form-intro>.eyebrow {display:none}
+  .quote-page .form-intro>h1 {order:1;font-size:32px!important;line-height:1.12;margin:0}
+  .quote-page .form-intro>p:not(.quote-context-note) {order:2;margin:0;font-size:14px}
+  .quote-page .form-card {order:3;padding:22px 16px!important;border-radius:14px!important}
+  .quote-page .quote-context {order:4;margin:12px 0 0;aspect-ratio:auto}
+  .quote-page .quote-context img {height:auto;aspect-ratio:16/10}
+  .quote-page .quote-context-note {order:5;margin:0;font-size:12px}
+  .quote-page .form-card>h2 {font-size:23px;margin:0 0 20px}
+  .quote-page .form-group {margin-bottom:24px}
+  .quote-page .form-group legend {font-size:17px;line-height:1.4}
+  .quote-page .quote-state {padding:16px;margin-block:16px}
+  .quote-page .coupon-highlight {padding:16px;margin-block:18px}
+  .quote-page .coupon-highlight h3 {font-size:19px}
+  .quote-page .form-card .simulator-card {padding:18px 14px!important;border-radius:12px}
+  .quote-page .sim-header h3 {font-size:21px}
+  .quote-page .sim-stat {padding:0;min-width:0}
+  .quote-page .sim-stat.highlight {padding:16px;background:#35243f;border-radius:10px}
+  .quote-page .action-buttons-group .button {width:100%;min-height:52px;font-size:16px}
+  .visit-page .contact-layout {display:flex;flex-direction:column;gap:22px!important;padding:22px 16px 30px!important;width:100%}
+  .visit-page .contact-layout>div {width:100%;min-width:0}
+  .visit-page .contact-layout h1 {font-size:32px!important;line-height:1.15;margin:0 0 14px}
+  .visit-page .contact-layout>div>.eyebrow {display:none}
+  .visit-page .contact-layout>div>p {font-size:14px}
+  .visit-page .visit-card {padding:20px 16px!important;margin-top:20px;border-radius:14px!important}
+  .visit-page .contact-panel {display:flex;flex-direction:column;padding:20px 16px!important;gap:12px}
+  .visit-page .contact-panel>h2 {order:0;font-size:24px;margin:0}
+  .visit-page .contact-panel>.advisor-item {order:1;margin:0;padding-block:14px}
+  .visit-page .contact-panel>.visit-preview {order:2;margin:8px 0 0}
+  .visit-page .contact-location {order:3}
+  .visit-page .visit-card button[type=submit] {width:100%;font-size:16px;min-height:52px}
+  .community-intro {padding-block:26px}
+  .community-filters {display:flex;flex-wrap:nowrap;overflow-x:auto;padding-bottom:10px}
+  .community-filters button {flex:0 0 auto;white-space:nowrap}
+  .interface-page #adminSections {display:flex;flex-wrap:nowrap;overflow-x:auto;gap:8px;padding-bottom:10px}
+  .interface-page #adminSections button {flex:0 0 auto;white-space:nowrap}
+  .admin-body {padding-bottom:0}
+}
+
+@media(max-width:360px){.explorer .filters{grid-template-columns:minmax(0,1fr)}.home-page .hero-offer-value{font-size:38px}.home-page .hero-actions{gap:8px}}
+
+.mobile-contact-actions{display:none}
+@media(max-width:760px){body.black-friday.home-page main{width:100%;max-width:none;padding:0;margin:0}body.black-friday.quote-page .bf-banner,body.black-friday.visit-page .bf-banner{display:none}.quote-page .quote-heading-detail,.quote-page .quote-heading-break{display:none}.interface-page.quote-page .form-layout{gap:12px}.quote-page .form-intro>.back{margin:0;padding:0}.quote-page .form-card>h2{display:none}.quote-page #quoteForm>fieldset:first-child .field-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.quote-page #quoteForm>fieldset:first-child .field-row select{padding-left:10px}.quote-page .form-intro>h1{font-size:30px!important}.mobile-contact-actions{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:10px;margin:18px 0}.mobile-contact-actions a{display:flex;align-items:center;justify-content:center;min-height:48px;font-size:13px;text-align:center;text-decoration:none}.mobile-contact-actions a:last-child{border:1px solid #695271;border-radius:10px;color:white}}
+
+@media(max-width:760px){body.black-friday.home-page .hero .bf-headline{font-size:15px;line-height:1.2}body.black-friday.home-page .hero-image{aspect-ratio:16/9;min-height:0}body.black-friday.home-page #elegir{order:5}body.black-friday.home-page .home-project-note{order:6}body.black-friday.home-page .hero-copy{gap:12px}body.black-friday.home-page .project-details-copy{order:0}}
+
+@media(max-width:760px){body.black-friday.quote-page .quote-context{display:block}.explorer .filter-disclosure{border:0;box-shadow:none;background:transparent!important;padding:0}.explorer .filter-disclosure[open]{padding-bottom:12px}}

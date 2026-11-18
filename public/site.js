@@ -1,7 +1,3 @@
-// Compact, keyboard-accessible navigation on phones; desktop links stay visible.
-(()=>{const header=document.querySelector('.site-header'),nav=header?.querySelector('nav');if(!nav)return;const mobile=matchMedia('(max-width:760px)');const toggle=document.createElement('button');toggle.type='button';toggle.className='navigation-toggle';toggle.textContent='Menú';nav.id='site-navigation';toggle.setAttribute('aria-controls',nav.id);toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Abrir navegación');header.insertBefore(toggle,nav);
- const sync=()=>{nav.hidden=mobile.matches;toggle.setAttribute('aria-expanded',String(!nav.hidden));toggle.textContent='Menú';toggle.setAttribute('aria-label','Abrir navegación');};sync();mobile.addEventListener('change',sync);toggle.onclick=()=>{nav.hidden=!nav.hidden;toggle.setAttribute('aria-expanded',String(!nav.hidden));toggle.textContent=nav.hidden?'Menú':'Cerrar';toggle.setAttribute('aria-label',nav.hidden?'Abrir navegación':'Cerrar navegación');};header.addEventListener('keydown',event=>{if(event.key==='Escape'&&mobile.matches&&!nav.hidden){nav.hidden=true;toggle.setAttribute('aria-expanded','false');toggle.textContent='Menú';toggle.setAttribute('aria-label','Abrir navegación');toggle.focus();}});
-})();
 // Global site utilities and interactive form logic for La Morada
 
 let selectedCurrency = new URLSearchParams(location.search).get('moneda') === 'USD' ? 'USD' : 'PEN';
