@@ -1,9 +1,13 @@
 // Anchored labels: collision handling changes visibility, never geographic position.
-export function resolveLabelVisibility(candidates,viewport){
+export function overlapsLabelObstacle(label,obstacles){
+  return obstacles.some(box=>label.x+label.width/2>box.left&&label.x-label.width/2<box.right&&label.y+label.height/2>box.top&&label.y-label.height/2<box.bottom);
+}
+export function resolveLabelVisibility(candidates,viewport,obstacles=[]){
   const accepted=[],visible=new Set();
   const ordered=candidates.slice().sort((a,b)=>b.priority-a.priority||Number(b.wasVisible)-Number(a.wasVisible)||a.order-b.order);
   for(const label of ordered){
     if(label.depth<=0||!label.enabled)continue;
+    if(overlapsLabelObstacle(label,obstacles))continue;
     const inset=label.wasVisible?-8:8;
     if(label.x-label.width/2<viewport.left+inset||label.x+label.width/2>viewport.right-inset||label.y-label.height/2<viewport.top+inset||label.y+label.height/2>viewport.bottom-inset)continue;
     const gap=label.wasVisible?1:9;

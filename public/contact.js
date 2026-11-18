@@ -5,6 +5,7 @@ visitForm.onsubmit=async event=>{
  event.preventDefault();if(visitSending)return;
  const message=document.querySelector('#visitStatus'),submit=visitForm.querySelector('button[type=submit]');
  visitSending=true;submit.disabled=true;const originalLabel=submit.textContent;submit.textContent='Registrando solicitud…';message.tabIndex=-1;message.className='form-message';message.textContent='Registrando tu solicitud…';
+ const completedRequest=visitRequest;
  const date=visitDateInput.value||'Por coordinar',time=document.querySelector('#visitTime').value||'Por coordinar';
  try{
   await window.MoradaReferral?.ready;
@@ -18,7 +19,7 @@ visitForm.onsubmit=async event=>{
   const explore=document.createElement('a');explore.href='recorrido.html';explore.className='button';explore.textContent='Explorar los lotes antes de ir';
   const again=document.createElement('button');again.type='button';again.className='text-link';again.textContent='Enviar otra solicitud';again.onclick=()=>{confirmation.remove();visitForm.reset();visitForm.hidden=false;message.textContent='';document.querySelector('#visitName').focus();};
   confirmation.append(heading,detail,preference,explore,again);visitForm.after(confirmation);confirmation.focus();visitRequest=crypto.randomUUID();
-  window.dispatchEvent(new CustomEvent('morada:lead',{detail:{currency:'PEN'}}));
+  window.dispatchEvent(new CustomEvent('morada:lead',{detail:{currency:'PEN',requestType:'visit',requestId:completedRequest}}));
  }catch(error){message.textContent=error.message||'No pudimos conectar. Tus datos siguen aquí; vuelve a intentarlo.';message.className='form-message error';message.focus();}
  finally{visitSending=false;submit.disabled=false;submit.textContent=originalLabel;}
 };

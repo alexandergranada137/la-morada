@@ -14,7 +14,33 @@
 .home-reading>summary {min-height:52px;padding:16px 0;font-size:16px;color:#dfc6ed;cursor:pointer}
 .home-reading .project-infrastructure {margin-top:20px}
 .home-reading .project-facts {margin-top:14px}
+#scene {z-index:0;isolation:isolate}
+.scene-panel :is(.scene-toolbar,.zoom-controls,.scene-footer,.model-details,.mobile-selection-link) {z-index:20}
+.scene-panel .scene-toolbar:has(.scene-options[open]) {z-index:30}
+.phone-bf-badge {position:absolute;top:14px;left:16px;padding:10px 14px;background:#17111cf2;border:1px solid #e6bd72;border-radius:6px;color:#ffe2a5;font:900 16px/1.1 'Nunito Morada','Segoe UI',sans-serif;letter-spacing:.04em;box-shadow:0 3px 16px #0003}
+/* Preserve each photograph's natural proportions and separate captions from media. */
+body.black-friday.home-page .gallery-stage {overflow:visible;background:transparent;border-radius:0}
+body.black-friday.home-page .gallery-panel figure {display:flex;flex-direction:column;margin:0;aspect-ratio:auto;overflow:visible}
+body.black-friday.home-page .gallery-panel figure::after {content:none}
+body.black-friday.home-page .gallery-panel figure>:is(img,video) {position:static;inset:auto;display:block;width:100%;height:auto;aspect-ratio:auto 16/9;max-height:70svh;object-fit:contain;object-position:center;border-radius:10px;background:#17131b}
+body.black-friday.home-page #panel-aerial img {aspect-ratio:auto 2400/2071}
+body.black-friday.home-page .gallery-panel figcaption {position:static;inset:auto;display:grid;gap:5px;padding:16px 0!important;background:transparent!important;border-radius:0;color:white}
+body.black-friday.home-page .gallery-panel figcaption strong {font-size:22px;line-height:1.3}
+body.black-friday.home-page .gallery-panel figcaption>span:last-child {min-block-size:0;font-size:13px;line-height:1.5}
+body.black-friday.home-page .gallery-tabs {display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;overflow:visible;box-sizing:border-box;width:min(100%,560px);max-width:100%;padding:0;margin:24px 0 20px;background:transparent!important;border:0;border-radius:0;box-shadow:inset 0 -1px #574460}
+body.black-friday.home-page .gallery-tabs button {box-sizing:border-box;display:flex;align-items:center;justify-content:center;min-width:0;width:100%;max-width:100%;white-space:normal;min-height:52px;margin:0;padding:12px 6px;font-size:14px;line-height:1.35;border:0!important;border-bottom:3px solid transparent!important;border-radius:0;background:transparent!important;color:#c9bdcf;box-shadow:none!important;transform:none}
+body.black-friday.home-page .gallery-tabs button[aria-selected=true] {background:transparent!important;border-bottom-color:#ddb0f5!important;color:#f0caff!important;font-weight:800}
+body.black-friday.home-page .gallery-tabs button:focus-visible {outline:2px solid #e4b8ff;outline-offset:-4px}
+@media(hover:hover){body.black-friday.home-page .gallery-tabs button:hover {background:transparent!important;color:#fff}}
 @media(max-width:760px){
+ body.phone-experience.home-page .phone-home-copy .phone-bf-title {font:italic 900 clamp(68px,22vw,92px)/.84 'Barlow Condensed','Arial Narrow',sans-serif;letter-spacing:-.015em;color:white;margin:0 0 16px;text-wrap:initial}
+ .phone-bf-title span {color:#e8bdff}
+ body.phone-experience.home-page .phone-home-copy .phone-bf-subtitle {font-size:19px;font-weight:700;line-height:1.25;margin-bottom:0;color:white}
+ body.phone-experience.home-page .phone-home-copy .phone-home-offer {border:0;margin:14px 0 18px;padding:0;font-size:14px}
+ body.phone-experience.home-page .phone-home-offer strong {display:block;font:italic 900 36px/1.1 'Barlow Condensed','Arial Narrow',sans-serif;color:#efbaff}
+ body.phone-experience.home-page .phone-home-copy {padding-top:20px}
+ body.black-friday.home-page .gallery-tabs button {font-size:12px}
+ body.black-friday.home-page .gallery-panel figure>:is(img,video) {max-height:65svh}
  body .mobile-dock {grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;height:calc(68px + env(safe-area-inset-bottom,0px));padding:4px 8px calc(4px + env(safe-area-inset-bottom,0px));background:#19151df5;border-top:1px solid #51415d;box-shadow:0 -5px 20px #0002;align-items:center}
  body .mobile-dock a {display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:56px;min-width:0;padding:4px 1px;border:0!important;border-radius:10px;color:#bcb0c6;font-size:11px;line-height:1.2;white-space:nowrap;font-weight:600;text-decoration:none}
  body .mobile-dock a::after {display:none!important}

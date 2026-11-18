@@ -188,6 +188,7 @@ const money = value => new Intl.NumberFormat('es-PE', {
     const version=++quoteVersion;liveQuote=null;
     document.querySelectorAll('.promotion-benefit').forEach(element=>element.remove());
     const item = currentLot();
+    if(item)window.dispatchEvent(new CustomEvent('morada:lot-view',{detail:{lotId:item.id,currency:selectedCurrency}}));
     const price = item?.price;
     const unavailable=['B','I'].includes(item?.block)||['sold','separated','blocked'].includes(price?.status);
     const ready=Boolean(item)&&!unavailable;
@@ -327,7 +328,7 @@ const money = value => new Intl.NumberFormat('es-PE', {
       if(!response.ok)throw new Error(result.message||'No se pudo registrar la solicitud.');
       receipt=result;
       submissionStatus.textContent='Solicitud registrada.';
-      window.dispatchEvent(new CustomEvent('morada:lead',{detail:{currency:selectedCurrency}}));
+      window.dispatchEvent(new CustomEvent('morada:lead',{detail:{currency:selectedCurrency,requestType:purpose==='hold'?'hold':'quote',requestId}}));
     } catch(error) { submissionStatus.textContent=error.message||'No pudimos registrar tu solicitud. Inténtalo nuevamente.';submissionStatus.className='form-message error';submissionStatus.focus();sending=false;submit.disabled=false;submit.textContent=purpose==='hold'?'Solicitar separación':'Solicitar cotización';return; }
     const messageLines = [
       'SOLICITUD DE COTIZACIÓN · PROYECTO LA MORADA',

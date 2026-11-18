@@ -7,6 +7,8 @@ const a={key:'A',x:400,y:300,width:40,height:30,priority:2,depth:200,enabled:tru
 const b={...a,key:'park',width:110,priority:1,order:1,wasVisible:false,x:430};
 assert.deepEqual([...resolveLabelVisibility([a,b],viewport)],['A']);
 assert.equal(b.x,430,'Collision handling must never move an anchor');
+assert.equal(resolveLabelVisibility([a],viewport,[{left:370,right:440,top:270,bottom:330}]).size,0,'Open menus must always exclude labels, even previously visible ones');
+assert.equal(resolveLabelVisibility([a],viewport,[{left:0,right:200,top:0,bottom:100}]).has('A'),true,'Controls must not hide unrelated map labels');
 const state={candidate:true,target:true,since:0,opacity:1};
 for(let t=16;t<1000;t+=16)stepLabelVisibility(state,t%64<32,t,.016);
 assert.equal(state.target,true,'Rapid collisions must not flash a visible label');

@@ -2,7 +2,7 @@ import {createCinematicGrade} from './cinematic-grade3d.js?v=luz-dorada1';
 import {addLotLeisure} from './lot-leisure3d.js?v=scale2';
 import {keepCameraAboveTerrain} from './camera-clearance3d.js';
 import {createSceneTheme} from './theme3d.js?v=design1';
-import {resolveLabelVisibility,stepLabelVisibility} from './label-layout.js';
+import {resolveLabelVisibility,stepLabelVisibility,overlapsLabelObstacle} from './label-layout.js?v=menus1';
 import * as THREE from './vendor/three/three.module.js';
 import { OrbitControls } from './vendor/three/OrbitControls.js';
 import { surfaceTexture, createHouse } from './materials3d.js?v=casas2';
@@ -74,6 +74,15 @@ const ground = new THREE.Mesh(new THREE.PlaneGeometry(2200,1800),new THREE.MeshS
 ground.rotation.x=-Math.PI/2;ground.position.y=-2;ground.receiveShadow=true;scene.add(ground);
 const palette={available:'#6d9b49',separated:'#e7c642',sold:'#9c82b4',blocked:'#a1a3a1',unknown:'#b3afa3'};
 const labelViewPoint=new THREE.Vector3(),labelProjection=new THREE.Vector3();
+function labelObstacles(){
+ const hostRect=host.getBoundingClientRect();
+ return [...document.querySelectorAll('.explorer-panel,.view-switch,.scene-options>summary,.scene-actions,#openPanorama,.zoom-controls,.scene-footer,.legend-disclosure[open] .legend,.model-details')].flatMap(element=>{
+  const style=getComputedStyle(element),box=element.getBoundingClientRect();
+  if(style.display==='none'||style.display==='contents'||style.visibility==='hidden'||!box.width||!box.height)return [];
+  return [{left:box.left-hostRect.left-10,right:box.right-hostRect.left+10,top:box.top-hostRect.top-10,bottom:box.bottom-hostRect.top+10}];
+ });
+}
+for(const element of document.querySelectorAll('.scene-options,.legend-disclosure,#panoramaPicker'))new MutationObserver(()=>{changed=true;}).observe(element,{attributes:true,attributeFilter:['open','hidden']});
 function updateFloatingLabels(now,dt){
  camera.updateMatrixWorld(true);
  const sprites=[...blockLabels,...(landscapeVisual?.labels||[])],candidates=[];
@@ -95,9 +104,10 @@ function updateFloatingLabels(now,dt){
    const rect = marker.getBoundingClientRect(), hostRect = host.getBoundingClientRect();
    candidates.push({key:marker,order:-1,depth:1,x:rect.left-hostRect.left+rect.width/2,y:rect.top-hostRect.top+rect.height/2,width:rect.width+16,height:rect.height+16,enabled:true,priority:10,wasVisible:true});
  }
- const visible=resolveLabelVisibility(candidates,{left:mobileLayout.matches?8:345,right:sceneWidth-8,top:100,bottom:sceneHeight-105});
+ const obstacles=labelObstacles();
+ const visible=resolveLabelVisibility(candidates,{left:mobileLayout.matches?8:345,right:sceneWidth-8,top:70,bottom:sceneHeight-70},obstacles);
  let animating=false;
- for(const sprite of sprites){const state=sprite.userData.labelState;animating=stepLabelVisibility(state,visible.has(sprite),now,dt,reducedMotion.matches)||animating;sprite.material.opacity=state.opacity;sprite.visible=state.opacity>0&&sprite.parent.visible;}
+ for(const sprite of sprites){const state=sprite.userData.labelState,candidate=candidates.find(item=>item.key===sprite);if(candidate&&overlapsLabelObstacle(candidate,obstacles)){if(state.opacity>0)animating=true;state.opacity=0;state.target=false;state.candidate=false;state.since=now;}else animating=stepLabelVisibility(state,visible.has(sprite),now,dt,reducedMotion.matches)||animating;sprite.material.opacity=state.opacity;sprite.visible=state.opacity>0&&sprite.parent.visible;}
  return animating;
 }
 function lotState(lot) { return blockedBlocks.has(lot.block) ? 'blocked' : verified ? catalog.get(lot.id)?.status || 'unknown' : 'unknown'; }
@@ -334,7 +344,7 @@ function updatePlaceMarkers() {
     marker.style.top = (1 - y) * 50 + '%';
     if (!marker.hidden) {
       const rect = marker.getBoundingClientRect(), hostRect = host.getBoundingClientRect();
-      const obstacles = document.querySelectorAll('.explorer-panel,.scene-toolbar,#panoramaPicker,.mobile-selection-link,.zoom-controls,.scene-footer,.model-details');
+      const obstacles = document.querySelectorAll('.explorer-panel,.view-switch,.scene-options>summary,.scene-actions,#openPanorama,.mobile-selection-link,.zoom-controls,.scene-footer,.legend-disclosure[open] .legend,.model-details');
       marker.hidden = rect.left < hostRect.left + 8 || rect.right > hostRect.right - 8 ||
         rect.top < hostRect.top + 8 || rect.bottom > hostRect.bottom - 8 ||
         [...obstacles].some(element => {
@@ -386,6 +396,7 @@ function showLot(lot, updatePanorama = true) {
   if(mesh){const focus=element('button','Ver este lote de cerca','secondary');focus.type='button';focus.onclick=()=>focusLot(lot);info.append(focus);}
   else info.append(element('p','Este lote figura en el catálogo, pero su polígono está pendiente de verificación.'));
   list.value=lot.id;
+  window.dispatchEvent(new CustomEvent('morada:lot-view',{detail:{lotId:lot.id,currency:currency.value}}));
   filtersPanel.open=false;
   const url=new URL(location.href);url.searchParams.set('lote',lot.id);url.searchParams.set('moneda',currency.value);history.replaceState(null,'',url);
   const share=element('button','Copiar enlace de este lote','share-lot');share.type='button';share.onclick=async()=>{try{await navigator.clipboard.writeText(url.href);share.textContent='Enlace copiado';}catch{const field=element('input');field.value=url.href;field.readOnly=true;field.setAttribute('aria-label','Enlace del lote para copiar');info.append(field);field.select();}};info.append(share);
