@@ -487,7 +487,7 @@ async function initialize(){
 }
 list.onchange=()=>{const lot=lots.find(l=>l.id===list.value);if(lot)showLot(lot);};
 for(const id of ['blockFilter','statusFilter','lotSearch'])$('#'+id).addEventListener('input',updateList);
-currency.value=new URLSearchParams(location.search).get('moneda')==='USD'?'USD':'PEN';
+currency.value=new URLSearchParams(location.search).get('moneda')==='PEN'?'PEN':'USD';
 currency.onchange=()=>{if(selected)showLot(selected,false);};
 function zoomBy(factor){if(!controls)return;const offset=camera.position.clone().sub(controls.target);offset.setLength(THREE.MathUtils.clamp(offset.length()*factor,controls.minDistance,controls.maxDistance));moveCamera(controls.target.clone().add(offset),controls.target.clone());}
 $('#zoomIn3d').onclick=()=>zoomBy(.76);$('#zoomOut3d').onclick=()=>zoomBy(1.3);

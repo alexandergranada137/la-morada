@@ -1,6 +1,6 @@
 // Global site utilities and interactive form logic for La Morada
 
-let selectedCurrency = new URLSearchParams(location.search).get('moneda') === 'USD' ? 'USD' : 'PEN';
+let selectedCurrency = new URLSearchParams(location.search).get('moneda') === 'PEN' ? 'PEN' : 'USD';
 const currencyPicker = document.createElement('select');
 currencyPicker.setAttribute('aria-label','Moneda de los precios');
 currencyPicker.innerHTML = '<option value="PEN">Soles · S/</option><option value="USD">Dólares · US$</option>';

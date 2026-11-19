@@ -113,16 +113,16 @@ if (heroPrice) {
     let lowest;
     for (const lot of lots ?? []) {
       if (lot.blocked || lot.price?.status !== 'available') continue;
-      const amount = lot.price.offer_pen?.total ?? lot.price.cents / 100;
+      const amount = lot.price.offer_usd?.total ?? (lot.price.usd_cents == null ? NaN : lot.price.usd_cents / 100);
       if (!Number.isFinite(amount) || amount <= 0) continue;
       if (!lowest || amount < lowest.amount) lowest = { lot, amount };
     }
     if (!lowest) return;
     const query = new URLSearchParams({
-      moneda: 'PEN', manzana: lowest.lot.block, lote: lowest.lot.lot,
+      moneda: 'USD', manzana: lowest.lot.block, lote: lowest.lot.lot,
     });
     heroPrice.textContent = new Intl.NumberFormat('es-PE', {
-      style: 'currency', currency: 'PEN', minimumFractionDigits: 0,
+      style: 'currency', currency: 'USD', minimumFractionDigits: 0,
     }).format(lowest.amount);
     document.querySelector('#hero-price-label').textContent = 'Lotes desde';
     document.querySelector('#hero-price-link').href = 'cotizacion.html?' + query;

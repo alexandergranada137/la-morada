@@ -25,7 +25,7 @@
       warm(path);
       if(path==='/recorrido'&&!planPrepared&&mayPrefetch()){
         planPrepared=true;
-        for(const href of ['/tour3d.js?v=menus4','/vendor/three/three.core.js','/vendor/three/three.module.js']){
+        for(const href of ['/tour3d.js?v=precios1711','/vendor/three/three.core.js','/vendor/three/three.module.js']){
           const preload=document.createElement('link');preload.rel='modulepreload';preload.href=href;document.head.append(preload);
         }
       }
