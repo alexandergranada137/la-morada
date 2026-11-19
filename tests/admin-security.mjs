@@ -12,6 +12,7 @@ const lots=JSON.parse(fs.readFileSync('lib/lots.json','utf8'));
 let source=fs.readFileSync('lib/morada-api.ts','utf8').replace(/^import .*;\r?\n/gm,'').replaceAll('import.meta.env.DEV','false');
 source=ts.transpile(source,{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022});
 const security={};new Function('exports','pbkdf2Async','nobleSha256',ts.transpile(fs.readFileSync('lib/admin-security.ts','utf8').replace(/^import .*;\r?\n/gm,''),{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}))(security,pbkdf2Async,nobleSha256);
+new Function('exports',ts.transpile(fs.readFileSync('lib/youtube.ts','utf8'),{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}))(security);
 const api={};new Function('exports','env','lots',...Object.keys(security),source)(api,{DB},lots,...Object.values(security));
 sqlite.prepare('INSERT INTO sessions(token,expires,created,last_seen) VALUES (?,?,?,?)').run(await security.sha256('test-session'),Date.now()+60000,Date.now(),Date.now());
 const request=(path,body,auth=true,origin='https://morada.test')=>new Request('https://morada.test/api/'+path,{method:body?'POST':'GET',headers:{'Content-Type':'application/json',Origin:origin,...(auth?{Cookie:'morada_admin=test-session'}:{})},...(body?{body:JSON.stringify(body)}:{})});

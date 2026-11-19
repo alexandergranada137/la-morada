@@ -26,3 +26,5 @@ body.black-friday.home-page .bf-countdown .bf-countdown-date {margin:18px 0 0;fo
 }
 @media(prefers-reduced-motion:no-preference) {.bf-countdown {animation:bf-countdown-enter 250ms cubic-bezier(.23,1,.32,1) both}}
 @keyframes bf-countdown-enter {from {opacity:0;transform:translateY(6px)} to {opacity:1;transform:translateY(0)}}
+
+body.black-friday.home-page .bf-headline,body.phone-experience.home-page .phone-bf-title{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:900;font-style:italic;letter-spacing:-.015em}

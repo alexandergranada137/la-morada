@@ -60,3 +60,5 @@ body.home-page .site-footer .button {background:none;border:0;box-shadow:none;co
   details::details-content {transition:none!important}
 }
 html[data-keyboard-navigation]::view-transition-group(*),html[data-keyboard-navigation]::view-transition-old(*),html[data-keyboard-navigation]::view-transition-new(*) {animation:none!important}
+
+.developer-credit{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:22px;padding-top:18px;border-top:1px solid #ffffff16;font:400 11px/1.5 "Nunito Morada","Segoe UI",sans-serif;color:#bdb5c3}.developer-credit img{display:block;width:112px;height:auto;max-width:35%;object-fit:contain;opacity:.85}

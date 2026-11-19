@@ -1,6 +1,7 @@
 import {sha256,newTotpSecret,matchTotp,derivePassword} from "./admin-security";
 import { env } from "cloudflare:workers";
 import lots from "./lots.json";
+import {youtubeUrl} from './youtube';
 
 type Lot = { id: string; block: string; lot: number; point: [number, number] | null; polygon: [number, number][] | null };
 type Price = { id: string; block: string; lot: number; area: number; base_cents: number; discount: number; cents: number; usd_cents: number | null; currency: string; status: string; updated: string };
@@ -269,7 +270,8 @@ async function handleGet(request: Request) {
   if (url.pathname.endsWith("/contenido")) {
     const admin = url.searchParams.get("scope")==="admin" && await isAdmin(request);
     if(url.searchParams.get("scope")==="admin" && !admin)return json({ok:false,sessionExpired:true,message:"Tu sesión venció. Vuelve a ingresar."},401);
-    const result = await db().prepare(admin ? "SELECT * FROM content ORDER BY created DESC LIMIT 20" : "SELECT * FROM content WHERE published=1 ORDER BY created DESC LIMIT 20").all();
+    const latest=url.searchParams.get('latest')==='1';
+    const result = await db().prepare(admin ? "SELECT * FROM content ORDER BY created DESC LIMIT 20" : latest ? "SELECT c.* FROM content c WHERE c.published=1 AND c.id=(SELECT id FROM content WHERE published=1 AND kind=c.kind ORDER BY created DESC,rowid DESC LIMIT 1) ORDER BY created DESC LIMIT 2" : "SELECT * FROM content WHERE published=1 ORDER BY created DESC LIMIT 20").all();
     return json({ok:true,items:result.results});
   }
   if (url.pathname.endsWith("/historial")) {
@@ -435,10 +437,11 @@ async function handlePost(request: Request) {
       return json({ok:true});
     }
     const title=String(body.title||"").trim(), text=String(body.text||"").trim(), image=String(body.image||"");
+    let videoUrl='';try{videoUrl=youtubeUrl(body.videoUrl);}catch(error){return fail(error instanceof Error?error.message:'Video inválido.');}
     if (!title || title.length>180 || text.length>10000 || image.length>500000 || (image && !/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(image))) return fail("Título o imagen inválidos. Usa JPG, PNG o WebP de hasta 350 KB.");
     if(body.kind==="owner" && body.imageConsent!==true) return fail("Confirma la autorización de publicación de la fotografía.");
     const id=typeof body.id==="string"?body.id:crypto.randomUUID();
-    await db().prepare("INSERT INTO content (id,kind,title,body,image,published,created) VALUES (?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET title=excluded.title,body=excluded.body,image=excluded.image,published=excluded.published").bind(id,body.kind==="owner"?"owner":"news",title,text,image,body.published===true?1:0,now()).run();
+    await db().prepare("INSERT INTO content (id,kind,title,body,image,published,created,video_url) VALUES (?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET title=excluded.title,body=excluded.body,image=excluded.image,published=excluded.published,video_url=excluded.video_url").bind(id,body.kind==="owner"?"owner":"news",title,text,image,body.published===true?1:0,now(),videoUrl).run();
     return json({ok:true,id});
   }
   if (url.pathname.endsWith("/cotizar")) {
