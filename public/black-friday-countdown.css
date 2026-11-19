@@ -1,67 +1,28 @@
 .bf-countdown {
-  --countdown-pink:#ff90ca;
-  box-sizing:border-box;
-  isolation:isolate;
-  position:relative;
-  width:min(100%,420px);
-  margin:20px 0 24px;
-  padding:20px 20px 16px;
-  border:1px solid #ed6aae42;
-  border-radius:14px;
-  background:radial-gradient(ellipse at 50% 0,#a6206538,transparent 70%),#100c12;
-  color:#fff4fb;
+  --countdown-lime:#d9ff39;
+  position:relative;isolation:isolate;box-sizing:border-box;
+  width:calc(100% - 48px);margin:20px 24px 0;padding:30px 24px 24px;
+  overflow:hidden;border:1px solid #d9ff3980;border-radius:16px;
+  background:radial-gradient(ellipse at 50% 100%,#b7ed002e,transparent 65%),#0b0e06;
+  color:#f9ffe8;box-shadow:0 0 36px #c9ff001c,inset 0 0 60px #c9ff0009;
 }
-.bf-countdown::before {
-  content:'';
-  position:absolute;
-  inset:0;
-  z-index:-1;
-  border-radius:inherit;
-  background-image:linear-gradient(#f47daf10 1px,transparent 1px),linear-gradient(90deg,#f47daf10 1px,transparent 1px);
-  background-size:34px 34px;
-  pointer-events:none;
-}
-body.black-friday.home-page .bf-countdown .bf-countdown-title {
-  margin:0 0 14px;
-  max-width:none;
-  font:800 16px/1.4 'Nunito Morada','Segoe UI',sans-serif;
-  text-align:center;
-  color:#ffe4f4;
-  text-shadow:0 0 18px #ff359b70;
-}
-.bf-countdown-clock {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.bf-countdown::before {content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(#d9ff3910 1px,transparent 1px),linear-gradient(90deg,#d9ff3910 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(90deg,transparent,#000 25%,#000 75%,transparent)}
+.bf-countdown::after {content:'';position:absolute;top:0;left:20%;right:20%;height:3px;background:#d9ff39;box-shadow:0 0 22px #d9ff39;pointer-events:none}
+body.black-friday.home-page .bf-banner {display:none}
+body.black-friday.home-page .bf-countdown .bf-countdown-title {margin:0 0 20px;max-width:none;font:italic 900 clamp(30px,3.8vw,52px)/1.05 'Barlow Condensed','Arial Narrow',sans-serif;text-align:center;text-transform:uppercase;letter-spacing:.01em;color:#e4ff83;text-shadow:0 0 24px #bdff0050}
+.bf-countdown-clock {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;max-width:620px;margin:auto}
 .bf-countdown-clock>div {min-width:0;text-align:center}
-.bf-countdown-clock strong {
-  display:grid;
-  place-items:center;
-  box-sizing:border-box;
-  width:100%;
-  min-height:66px;
-  padding:8px 3px;
-  border:1px solid #ff88c551;
-  border-radius:9px;
-  background:linear-gradient(160deg,#25111e,#160e16);
-  color:#fff1fa;
-  box-shadow:0 0 20px #e51b8620,inset 0 1px #ffd8ef14;
-  font:800 clamp(26px,3vw,36px)/1 'Nunito Morada','Segoe UI',sans-serif;
-  font-variant-numeric:tabular-nums;
-  letter-spacing:-.04em;
-  text-shadow:0 0 14px #ff72bb50;
-}
-.bf-countdown-clock span {display:block;margin-top:7px;font:600 11px/1.5 'Nunito Morada','Segoe UI',sans-serif;color:#efb3d4}
-body.black-friday.home-page .bf-countdown .bf-countdown-date {margin:14px 0 0;font:400 11px/1.6 'Nunito Morada','Segoe UI',sans-serif;color:#d3b5c7;text-align:center;max-width:none}
+.bf-countdown-clock strong {display:grid;place-items:center;box-sizing:border-box;width:100%;min-height:110px;padding:10px 3px;border:1px solid #e8ff89;border-radius:10px;background:linear-gradient(145deg,#e8ff75,#ceff00);color:#111900;box-shadow:0 0 22px #cfff0038,inset 0 1px #ffffffe0;font:900 clamp(54px,6vw,80px)/1 'Nunito Morada','Segoe UI',sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.06em}
+.bf-countdown-clock span {display:block;margin-top:9px;font:800 12px/1.5 'Nunito Morada','Segoe UI',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#e6efcb}
+body.black-friday.home-page .bf-countdown .bf-countdown-date {margin:18px 0 0;font:600 13px/1.6 'Nunito Morada','Segoe UI',sans-serif;color:#d9e5bb;text-align:center;max-width:none}
 .bf-countdown.has-started .bf-countdown-clock {display:none}
-@media(min-width:1100px) {
-  body.black-friday.home-page .hero>.bf-countdown {position:absolute;top:64px;right:4%;width:min(34%,420px);margin:0;background-color:#100c12eb}
-}
 @media(max-width:760px) {
-  body.phone-experience.home-page .phone-home-copy .bf-countdown {margin:20px 0;width:100%;padding:18px 14px 14px}
-  .bf-countdown-clock {gap:8px}
-  .bf-countdown-clock strong {min-height:60px;font-size:30px}
-  body.black-friday.home-page .phone-home-copy .bf-countdown .bf-countdown-title {font-size:15px;margin-bottom:14px}
-  body.black-friday.home-page .phone-home-copy .bf-countdown .bf-countdown-date {font-size:11px;margin-top:14px}
+ body.phone-experience.home-page .phone-home-copy .bf-countdown {width:100%;margin:0 0 26px;padding:22px 12px 18px;border-radius:12px}
+ body.black-friday.home-page .phone-home-copy .bf-countdown .bf-countdown-title {font-size:clamp(27px,7.8vw,34px);margin:0 0 18px;line-height:1.05}
+ .bf-countdown-clock {gap:7px}
+ .bf-countdown-clock strong {min-height:72px;font-size:clamp(30px,10vw,43px);border-radius:7px}
+ .bf-countdown-clock span {font-size:9px;letter-spacing:0;margin-top:8px}
+ body.black-friday.home-page .phone-home-copy .bf-countdown .bf-countdown-date {font-size:11px;margin-top:16px}
 }
-@media(prefers-reduced-motion:no-preference) {
-  .bf-countdown {animation:bf-countdown-enter 200ms cubic-bezier(.23,1,.32,1) both}
-}
+@media(prefers-reduced-motion:no-preference) {.bf-countdown {animation:bf-countdown-enter 250ms cubic-bezier(.23,1,.32,1) both}}
 @keyframes bf-countdown-enter {from {opacity:0;transform:translateY(6px)} to {opacity:1;transform:translateY(0)}}

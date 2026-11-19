@@ -17,9 +17,9 @@ if (typeof document !== 'undefined') {
     const digits=Object.fromEntries(['days','hours','minutes','seconds'].map(unit=>[unit,countdown.querySelector(`[data-unit="${unit}"]`)]));
     let timer;
     function place() {
-      const anchor=phone.matches?document.querySelector('.phone-home-offer'):desktopOffer;
-      if(!phone.matches&&matchMedia('(min-width:1100px)').matches)document.querySelector('.hero').append(countdown);
-      else (anchor||desktopOffer).after(countdown);
+      const phoneCopy=document.querySelector('.phone-home-copy');
+      if(phone.matches&&phoneCopy)phoneCopy.prepend(countdown);
+      else document.querySelector('.site-header').after(countdown);
     }
     function tick() {
       clearTimeout(timer);
@@ -34,7 +34,6 @@ if (typeof document !== 'undefined') {
       if(!parts.started&&!document.hidden)timer=setTimeout(tick,1000-Date.now()%1000+20);
     }
     phone.addEventListener('change',place);
-    matchMedia('(min-width:1100px)').addEventListener('change',place);
     document.addEventListener('visibilitychange',tick);
     window.addEventListener('pagehide',()=>clearTimeout(timer));
     window.addEventListener('pageshow',tick);

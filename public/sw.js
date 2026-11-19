@@ -1,5 +1,5 @@
 /* Public, versioned resources only. Prices, leads, authentication and admin never enter Cache Storage. */
-const RELEASE='5e0eaba283ae2f22';
+const RELEASE='02d4e589dc397f19';
 const CACHE='morada-public-'+RELEASE;
 const PAGE_PATHS=new Set(['/','/recorrido','/cotizacion','/contacto','/comunidad','/plano','/privacidad','/cookies','/aviso-legal','/condiciones']);
 const normalize=pathname=>pathname.replace(/\.html$/,'').replace(/\/index$/,'/')||'/';
