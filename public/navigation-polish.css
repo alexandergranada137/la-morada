@@ -14,6 +14,17 @@
 .home-reading>summary {min-height:52px;padding:16px 0;font-size:16px;color:#dfc6ed;cursor:pointer}
 .home-reading .project-infrastructure {margin-top:20px}
 .home-reading .project-facts {margin-top:14px}
+body.black-friday.quote-page #simulatorCard .sim-results {grid-template-columns:minmax(0,1fr);margin:0 0 22px;padding:0;background:transparent!important;gap:18px}
+body.black-friday.quote-page #simulatorCard .sim-stat.highlight strong {font-size:clamp(26px,4vw,34px);line-height:1.25;color:#efc9ff!important}
+body.black-friday.quote-page #simulatorCard .sim-stat small {font-size:13px;letter-spacing:0}
+body.black-friday.quote-page #simulatorCard .sim-stat>span {display:block;font-size:12px;line-height:1.6;margin-top:6px}
+body.black-friday.quote-page #simulatorCard .sim-stat:not(.highlight) {border-top:1px solid #574460;padding-top:16px}
+body.black-friday.quote-page #simulatorCard .pill-btn {min-height:44px}
+body.black-friday.quote-page #simulatorCard .sim-row {display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+body.black-friday.quote-page #simulatorCard .pill-group {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;gap:8px}
+body.black-friday.quote-page #simulatorCard #termGroup {grid-template-columns:repeat(3,minmax(0,1fr))}
+body.black-friday.quote-page #simulatorCard .pill-btn {min-width:0;width:100%;padding:8px 4px}
+body.black-friday.quote-page #simulatorCard .sim-footnote {font-size:12px}
 #scene {z-index:0;isolation:isolate}
 .scene-panel :is(.scene-toolbar,.zoom-controls,.scene-footer,.model-details,.mobile-selection-link) {z-index:20}
 .scene-panel .scene-toolbar:has(.scene-options[open]) {z-index:30}

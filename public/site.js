@@ -118,11 +118,15 @@ const money = value => new Intl.NumberFormat('es-PE', {
 
   function updateFinancing(totalPrice) {
     if (!simDownAmount || !simMonthlyAmount) return;
-    document.querySelector('#simulatorCard').hidden=!(totalPrice>0)||paymentMethod.value==='cash';
+    const item=currentLot();
+    const unavailable=['B','I'].includes(item?.block)||['sold','separated','blocked'].includes(item?.price?.status);
+    document.querySelector('#simulatorCard').hidden=paymentMethod.value!=='installments'||unavailable;
+    document.querySelector('#simPlan').textContent=`${currentMonths} cuotas mensuales · Inicial del ${currentDownPct} %`;
 
     if (!totalPrice || totalPrice <= 0) {
       simDownAmount.textContent = 'Por confirmar';
-      simMonthlyAmount.textContent = 'Por confirmar';
+      simMonthlyAmount.textContent = item?'Por confirmar':'Elige un lote';
+      document.querySelector('#simBalance').textContent=item?'El equipo debe confirmar el precio para calcular tus cuotas.':'Selecciona un lote con precio publicado.';
       return;
     }
 
@@ -132,6 +136,7 @@ const money = value => new Intl.NumberFormat('es-PE', {
 
     simDownAmount.textContent = money(downPayment);
     simMonthlyAmount.textContent = `${money(monthly)} / mes`;
+    document.querySelector('#simBalance').textContent=`Saldo a distribuir: ${money(balance)}`;
   }
 
   function updateWhatsAppLink() {
@@ -262,7 +267,7 @@ const money = value => new Intl.NumberFormat('es-PE', {
     btn.onclick = () => {
       document.querySelectorAll('#downPaymentGroup button').forEach(b => {b.classList.remove('active');b.setAttribute('aria-pressed','false');});
       btn.classList.add('active');btn.setAttribute('aria-pressed','true');
-      currentDownPct = Number(btn.dataset.down);
+      currentDownPct = [30,40,50,70].includes(Number(btn.dataset.down))?Number(btn.dataset.down):30;
       const item = currentLot();
       const total = liveQuote?.total ?? (item?.price ? (selectedCents(item.price) / 100) : 0);
       updateFinancing(total);
