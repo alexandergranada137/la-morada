@@ -3,6 +3,7 @@ import { runWithConnectorBinding } from "../lib/connector-context";
 import type { ConnectorBinding } from "../lib/connector-contract.mjs";
 import { publicCacheControl } from '../lib/cache-policy';
 import { CACHE_RELEASE } from '../lib/cache-release';
+import { applySecurityHeaders } from '../lib/security-headers';
 
 const worker = {
   async fetch(request: Request, env: Cloudflare.Env, ctx: ExecutionContext<{ CONNECTORS?: ConnectorBinding }>) {
@@ -15,7 +16,7 @@ const worker = {
     const bypass=/no-cache|no-store/.test(request.headers.get('Cache-Control')||'');
     if(cacheablePage&&!bypass){
       const cached=await caches.default.match(cacheKey);
-      if(cached){const hit=new Response(cached.body,cached);hit.headers.set('Cache-Control',publicCacheControl(url.pathname,'text/html',200));hit.headers.set('X-Morada-Page-Cache','HIT');return hit;}
+      if(cached){const hit=new Response(cached.body,cached);applySecurityHeaders(hit.headers);hit.headers.set('Cache-Control',publicCacheControl(url.pathname,'text/html',200));hit.headers.set('X-Morada-Page-Cache','HIT');return hit;}
     }
     let binding = ctx.props?.CONNECTORS;
     // Local preview emulates the same request-scoped capability. This branch and
@@ -39,9 +40,7 @@ const worker = {
     const assetRequest=url.pathname==='/'||url.pathname.endsWith('.html')||!url.pathname.startsWith('/api/')&&!url.pathname.startsWith('/_');
     let response=env.ASSETS&&assetRequest?await env.ASSETS.fetch(request):await runWithConnectorBinding(binding, () => handler.fetch(request, env, ctx));
     response=new Response(response.body,response);
-    response.headers.set("X-Content-Type-Options","nosniff");
-    response.headers.set("Referrer-Policy","strict-origin-when-cross-origin");
-    response.headers.set("Permissions-Policy","camera=(), microphone=(), geolocation=()");
+    applySecurityHeaders(response.headers);
     if(/^\/admin(?:\.html)?\/?$/.test(url.pathname))response.headers.set("X-Robots-Tag","noindex, nofollow");
     response.headers.set('Cache-Control',publicCacheControl(url.pathname,response.headers.get('Content-Type')||'',response.status));
     if(url.pathname==='/sw.js')response.headers.set('Service-Worker-Allowed','/');

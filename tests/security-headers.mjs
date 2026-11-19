@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import ts from 'typescript';
+const api={};new Function('exports',ts.transpile(fs.readFileSync('lib/security-headers.ts','utf8'),{module:ts.ModuleKind.CommonJS}))(api);
+const headers=new Headers();api.applySecurityHeaders(headers);
+assert.equal(headers.get('x-frame-options'),'DENY');
+const csp=headers.get('content-security-policy');
+assert.match(csp,/frame-ancestors 'none'/);assert.match(csp,/object-src 'none'/);assert.match(csp,/base-uri 'self'/);assert.match(csp,/form-action 'self'/);
+const script=csp.split(';').find(s=>s.trim().startsWith('script-src'));
+assert.ok(!script.includes('unsafe-inline')&&!script.includes('unsafe-eval')&&!script.includes('*'));
+for(const source of ['https://www.googletagmanager.com','https://connect.facebook.net'])assert.ok(script.includes(source));
+assert.match(csp,/frame-src https:\/\/www.google.com/);
+console.log('PASS: clickjacking defense, no arbitrary inline/eval scripts, restricted plugins/forms/base URL, explicit Analytics/Meta/Maps compatibility.');
