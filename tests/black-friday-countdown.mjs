@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {BLACK_FRIDAY_START,countdownParts} from '../public/black-friday-countdown.js';
+const start=Date.parse(BLACK_FRIDAY_START);
+assert.equal(new Date(start).toISOString(),'2026-11-27T05:00:00.000Z');
+assert.deepEqual(countdownParts(Date.parse('2026-11-26T23:59:59-05:00')),{days:0,hours:0,minutes:0,seconds:1,started:false});
+assert.deepEqual(countdownParts(start-((8*86400+3*3600+2*60+1)*1000)),{days:8,hours:3,minutes:2,seconds:1,started:false});
+assert.equal(countdownParts(start-1).seconds,1);
+assert.deepEqual(countdownParts(start),{days:0,hours:0,minutes:0,seconds:0,started:true});
+assert.deepEqual(countdownParts(start+86400000),{days:0,hours:0,minutes:0,seconds:0,started:true});
+console.log('PASS: Peru midnight start, day/hour/minute boundaries, no early start, zero clamp and no countdown restart after Black Friday begins.');
