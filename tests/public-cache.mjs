@@ -29,6 +29,7 @@ async function route(url,options){let response;const pending=[];handlers.get('fe
 for(const [url,options] of [
   ['https://morada.test/api/clientes'],['https://morada.test/api/catalogo'],['https://morada.test/admin'],['https://morada.test/admin.html'],
   ['https://morada.test/admin-tools.js'],['https://third-party.test/pixel.js'],['https://morada.test/cotizacion',{method:'POST'}],
+  ['https://morada.test/plano'],['https://morada.test/plano.html'],
   ['https://morada.test/',{headers:{Authorization:'test'}}]
 ])assert.equal(await route(url,options),undefined,'Sensitive and external requests are never intercepted');
 assert.equal(calls,0);

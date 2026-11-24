@@ -1,8 +1,6 @@
 (() => {
   const home=document.querySelector('.home-page main');if(!home)return;
-  const title=document.querySelector('#project-details-title');if(title)title.textContent='Conoce el lugar.';
   const projectCopy=document.querySelector('.project-details-copy');
-  const description=projectCopy?.querySelector(':scope>p');if(description)description.textContent='Uchumayo, Arequipa. Bien inmueble futuro.';
   function disclosure(title,nodes){
     const details=document.createElement('details');details.className='home-reading';
     const summary=document.createElement('summary');summary.textContent=title;details.append(summary,...nodes);return details;

@@ -1,6 +1,6 @@
 (() => {
   if(location.protocol!=='https:'||/^\/admin/.test(location.pathname))return;
-  const paths=new Set(['/','/recorrido','/cotizacion','/contacto','/comunidad','/plano']);
+  const paths=new Set(['/','/recorrido','/cotizacion','/contacto','/comunidad','/comprar-terreno-en-cuotas']);
   const normalize=path=>path.replace(/\.html$/,'').replace(/\/index$/,'/')||'/';
   const connection=navigator.connection;
   const mayPrefetch=()=>!connection?.saveData&&!/^(slow-)?2g$/.test(connection?.effectiveType||'')&&!document.hidden;

@@ -11,6 +11,9 @@ async function scan(directory){
   }
 }
 await scan('public');
+// Server-injected SEO changes must also invalidate cached HTML shells.
+hash.update(await fs.readFile('lib/seo.ts'));
+hash.update(await fs.readFile('lib/catalog-index.ts'));
 const template=await fs.readFile('scripts/cache-worker.template.js','utf8');hash.update(template);
 const release=hash.digest('hex').slice(0,16);
 await fs.writeFile('public/sw.js',template.replace('__CACHE_RELEASE__',release));

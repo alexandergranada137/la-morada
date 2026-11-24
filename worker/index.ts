@@ -4,14 +4,21 @@ import type { ConnectorBinding } from "../lib/connector-contract.mjs";
 import { publicCacheControl } from '../lib/cache-policy';
 import { CACHE_RELEASE } from '../lib/cache-release';
 import { applySecurityHeaders } from '../lib/security-headers';
+import { PUBLIC_PAGES, canonicalPath, robotsText, sitemapXml, pageMetadata } from '../lib/seo';
+import { lotCatalogHtml } from '../lib/catalog-index';
 
 const worker = {
   async fetch(request: Request, env: Cloudflare.Env, ctx: ExecutionContext<{ CONNECTORS?: ConnectorBinding }>) {
     const url=new URL(request.url);
-    const pages=["","recorrido","plano","cotizacion","comunidad","contacto","aviso-legal","privacidad","cookies","condiciones"];
-    if(url.pathname==="/robots.txt")return new Response("User-agent: *\nDisallow: /admin\nDisallow: /api/\nSitemap: "+url.origin+"/sitemap.xml\n",{headers:{"Content-Type":"text/plain; charset=utf-8"}});
-    if(url.pathname==="/sitemap.xml")return new Response('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+pages.map(page=>'<url><loc>'+url.origin+'/'+page+'</loc></url>').join('')+'</urlset>',{headers:{"Content-Type":"application/xml; charset=utf-8"}});
-    const cacheablePage=request.method==='GET'&&pages.some(page=>url.pathname==='/'+page)&&!request.headers.has('Authorization');
+    if(url.pathname==="/robots.txt")return new Response(robotsText(url.origin),{headers:{"Content-Type":"text/plain; charset=utf-8"}});
+    if(url.pathname==="/sitemap.xml")return new Response(sitemapXml(url.origin),{headers:{"Content-Type":"application/xml; charset=utf-8"}});
+    const pagePath=canonicalPath(url.pathname);
+    if(pagePath&&pagePath!==url.pathname&&(request.method==='GET'||request.method==='HEAD')){
+      // Keep referral, campaign and selected-lot parameters while consolidating URL aliases.
+      const destination=new URL(url);destination.pathname=pagePath;
+      return new Response(null,{status:308,headers:{Location:destination.href,'Cache-Control':'public, max-age=3600'}});
+    }
+    const cacheablePage=request.method==='GET'&&Object.hasOwn(PUBLIC_PAGES,url.pathname)&&url.pathname!=='/plano'&&!request.headers.has('Authorization');
     const cacheKey=new Request(url.origin+url.pathname+'?__morada_release='+CACHE_RELEASE);
     const bypass=/no-cache|no-store/.test(request.headers.get('Cache-Control')||'');
     if(cacheablePage&&!bypass){
@@ -42,16 +49,23 @@ const worker = {
     response=new Response(response.body,response);
     applySecurityHeaders(response.headers);
     if(/^\/admin(?:\.html)?\/?$/.test(url.pathname))response.headers.set("X-Robots-Tag","noindex, nofollow");
+    if(response.status>=400)response.headers.set('X-Robots-Tag','noindex');
     response.headers.set('Cache-Control',publicCacheControl(url.pathname,response.headers.get('Content-Type')||'',response.status));
+    if(url.pathname==='/plano'&&response.status===200)response.headers.set('Cache-Control','public, max-age=0, must-revalidate');
     if(url.pathname==='/sw.js')response.headers.set('Service-Worker-Allowed','/');
-    if(response.headers.get("Content-Type")?.includes("text/html")){
+    if(response.status===200&&pagePath&&response.headers.get("Content-Type")?.includes("text/html")){
       let verification="";
       try{const row=await env.DB.prepare("SELECT value FROM settings WHERE key='site_config'").first<{value:string}>();verification=row?JSON.parse(row.value).verification||"":"";}catch{/* Metadata must not prevent pages loading. */}
       const meta= /^[A-Za-z0-9_-]{10,200}$/.test(verification)?'<meta name="google-site-verification" content="'+verification+'">':"";
-      const canonical=url.origin+url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/');
-      const image=url.origin+'/assets/render-oficial-perspectiva.webp';
-      const structured={'@context':'https://schema.org','@type':'RealEstateAgent',name:'BIOSFERA INMOBILIARIA S.A.C.',alternateName:'La Morada',url:url.origin,telephone:'+51966030329',email:'Biosfera.marketing.di@gmail.com',taxID:'20610186450',image,logo:url.origin+'/assets/brand/logo-dark.webp',address:{'@type':'PostalAddress',streetAddress:'Calle Lima 100, oficina 608',addressLocality:'Yanahuara, Arequipa',addressCountry:'PE'}};
-      response=new HTMLRewriter().on('title',{element(element){element.onEndTag(end=>{end.after('<meta property="og:title" content="La Morada · Terrenos en Uchumayo, Arequipa">',{html:true});});}}).on('meta[name="description"]',{element(element){const description=element.getAttribute('content')||'';element.after('<meta property="og:description" content="'+description.replaceAll('&','&amp;').replaceAll('"','&quot;')+'">',{html:true});}}).on('head',{element(element){element.append(meta+'<link rel="canonical" href="'+canonical+'"><meta property="og:type" content="website"><meta property="og:locale" content="es_PE"><meta property="og:site_name" content="La Morada"><meta property="og:url" content="'+canonical+'"><meta property="og:image" content="'+image+'"><meta name="twitter:card" content="summary_large_image"><link rel="icon" type="image/webp" href="/assets/brand/logo-dark.webp"><script type="application/ld+json">'+JSON.stringify(structured).replaceAll('<','\\u003c')+'</script>',{html:true});}}).transform(response);
+      response=new HTMLRewriter().on('head',{element(element){element.append(meta+pageMetadata(url.origin,pagePath),{html:true});}}).transform(response);
+      if(pagePath==='/plano'){
+        let catalog=lotCatalogHtml([]);
+        try{
+          const result=await env.DB.prepare("SELECT block,lot,area,usd_cents,status FROM prices WHERE status='available' AND block NOT IN ('B','I') ORDER BY block,lot LIMIT 200").all<{block:string;lot:number;area:number;usd_cents:number|null;status:string}>();
+          catalog=lotCatalogHtml(result.results);
+        }catch{/* Keep a usable route to the interactive catalog if the database is unavailable. */}
+        response=new HTMLRewriter().on('#public-lot-catalog',{element(element){element.setInnerContent(catalog,{html:true});}}).transform(response);
+      }
       response.headers.delete('ETag');
     }
     if(cacheablePage&&response.status===200&&response.headers.get('Content-Type')?.includes('text/html')){

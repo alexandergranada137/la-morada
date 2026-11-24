@@ -5,7 +5,7 @@
   const home=document.querySelector('.home-page main');
   if(home){
     const intro=document.createElement('section');intro.className='phone-home-intro';intro.setAttribute('aria-label','Bienvenido a La Morada');
-    intro.innerHTML='<figure><img src="assets/club-alegra-actualizado.webp" width="960" height="720" alt="Piscina y terraza proyectadas del Club Alegra" fetchpriority="high"><figcaption>Club Alegra · Imagen referencial</figcaption></figure><div class="phone-home-copy"><h1 class="phone-bf-title">BLACK<br><span>FRIDAY</span></h1><p class="phone-bf-subtitle">Lotes en Uchumayo, Arequipa.</p><p class="phone-home-offer">Hasta <strong>US$ 6,000 de descuento</strong><span>Solo al contado. Consulta las condiciones de tu lote.</span></p><a class="phone-home-primary" href="/recorrido">Explorar los lotes</a><a class="phone-home-visit" href="/contacto">Coordinar una visita</a></div>';
+    intro.innerHTML='<figure><img src="assets/club-alegra-actualizado.webp" width="960" height="720" alt="Piscina y terraza proyectadas del Club Alegra" fetchpriority="high"><figcaption>Club Alegra · Imagen referencial</figcaption></figure><div class="phone-home-copy"><h1 class="phone-bf-title">BLACK<br><span>FRIDAY</span></h1><p class="phone-bf-subtitle">Terrenos en Uchumayo, Arequipa.</p><p class="phone-home-offer">Hasta <strong>US$ 6,000 de descuento</strong><span>Solo al contado. Consulta las condiciones de tu lote.</span></p><a class="phone-home-primary" href="/recorrido">Explorar los lotes</a><a class="phone-home-visit" href="/contacto">Coordinar una visita</a></div>';
     home.prepend(intro);
   }
   const main=document.querySelector('.explorer');

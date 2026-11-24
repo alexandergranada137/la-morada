@@ -1,7 +1,8 @@
 /* Public, versioned resources only. Prices, leads, authentication and admin never enter Cache Storage. */
-const RELEASE='18fb8732e2f73e6e';
+const RELEASE='b8a3bda1f1b8397e';
 const CACHE='morada-public-'+RELEASE;
-const PAGE_PATHS=new Set(['/','/recorrido','/cotizacion','/contacto','/comunidad','/plano','/privacidad','/cookies','/aviso-legal','/condiciones']);
+// /plano contains current server-rendered prices and must always reach the network.
+const PAGE_PATHS=new Set(['/','/recorrido','/cotizacion','/contacto','/comunidad','/privacidad','/cookies','/aviso-legal','/condiciones','/comprar-terreno-en-cuotas']);
 const normalize=pathname=>pathname.replace(/\.html$/,'').replace(/\/index$/,'/')||'/';
 function classify(request){
   const url=new URL(request.url);
