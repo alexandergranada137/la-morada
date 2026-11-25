@@ -1,0 +1,21 @@
+.morada-tour{position:fixed;inset:auto;margin:0;box-sizing:border-box;z-index:510;padding:20px;border:1px solid #d5c7b0;border-radius:16px;background:#fffdf4;color:#2b2331;box-shadow:0 12px 44px #0004;font-family:'Nunito Morada','Segoe UI',sans-serif;overflow:visible}
+.morada-tour::backdrop{background:transparent;pointer-events:none}
+.morada-tour:before{content:'';position:absolute;left:var(--tour-arrow,32px);width:12px;height:12px;background:#fffdf4;border:1px solid #d5c7b0;transform:translateX(-50%) rotate(45deg);z-index:-1}
+.morada-tour[data-side=below]:before{top:-7px;border-right:0;border-bottom:0}
+.morada-tour[data-side=above]:before{bottom:-7px;border-left:0;border-top:0}
+.morada-tour .morada-tour-count{margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.035em;color:#714080;text-transform:uppercase}
+.morada-tour h2{margin:0 0 8px;font-size:21px;line-height:1.2;letter-spacing:-.02em;color:#2b2331}
+.morada-tour [data-tour-copy]{margin:0;font-size:14px;line-height:1.65;color:#53485b}
+.morada-tour-content{max-height:calc(100dvh - 140px);overflow:auto}
+.morada-tour-actions{display:flex;align-items:center;gap:8px;margin-top:16px}
+.morada-tour button{min-height:44px;padding:9px 12px;border:0;border-radius:8px;background:transparent;color:#56445e;font:700 14px 'Nunito Morada','Segoe UI',sans-serif;cursor:pointer;transition:background 140ms ease,transform 140ms cubic-bezier(.23,1,.32,1)}
+.morada-tour [data-tour-next]{margin-left:auto;background:#713391;color:#fff;padding-inline:18px}
+.morada-tour [data-tour-skip]{padding-left:4px;text-decoration:underline;text-underline-offset:4px;font-weight:400}
+.morada-tour [hidden]{display:none!important}
+.morada-tour button:focus-visible,.quick-tour-replay:focus-visible{outline:3px solid #a05ac0;outline-offset:3px}
+.morada-tour button:active{transform:scale(.97)}
+.morada-tour-ring{position:fixed;z-index:500;box-sizing:border-box;border:2px solid #dcff48;border-radius:12px;box-shadow:0 0 0 4px #dcff482a;pointer-events:none}
+.site-footer .quick-tour-replay{display:block;min-height:44px;margin:12px 0 0;padding:8px 0;border:0;background:none;color:inherit;font:inherit;font-size:13px;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+@media(hover:hover){.morada-tour button:hover{background:#eee3ef}.morada-tour [data-tour-next]:hover{background:#54206f}}
+@media(prefers-reduced-motion:reduce){.morada-tour button{transition:none}.morada-tour button:active{transform:none}}
+@media(max-height:420px){.morada-tour{padding:14px}.morada-tour-content{max-height:calc(100dvh - 110px)}.morada-tour h2{font-size:18px}.morada-tour-actions{margin-top:8px}}
